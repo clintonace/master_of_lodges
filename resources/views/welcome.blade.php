@@ -1,132 +1,1571 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Laravel</title>
+@section('content')
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}a{background-color:transparent}[hidden]{display:none}html{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;line-height:1.5}*,:after,:before{box-sizing:border-box;border:0 solid #e2e8f0}a{color:inherit;text-decoration:inherit}svg,video{display:block;vertical-align:middle}video{max-width:100%;height:auto}.bg-white{--bg-opacity:1;background-color:#fff;background-color:rgba(255,255,255,var(--bg-opacity))}.bg-gray-100{--bg-opacity:1;background-color:#f7fafc;background-color:rgba(247,250,252,var(--bg-opacity))}.border-gray-200{--border-opacity:1;border-color:#edf2f7;border-color:rgba(237,242,247,var(--border-opacity))}.border-t{border-top-width:1px}.flex{display:flex}.grid{display:grid}.hidden{display:none}.items-center{align-items:center}.justify-center{justify-content:center}.font-semibold{font-weight:600}.h-5{height:1.25rem}.h-8{height:2rem}.h-16{height:4rem}.text-sm{font-size:.875rem}.text-lg{font-size:1.125rem}.leading-7{line-height:1.75rem}.mx-auto{margin-left:auto;margin-right:auto}.ml-1{margin-left:.25rem}.mt-2{margin-top:.5rem}.mr-2{margin-right:.5rem}.ml-2{margin-left:.5rem}.mt-4{margin-top:1rem}.ml-4{margin-left:1rem}.mt-8{margin-top:2rem}.ml-12{margin-left:3rem}.-mt-px{margin-top:-1px}.max-w-6xl{max-width:72rem}.min-h-screen{min-height:100vh}.overflow-hidden{overflow:hidden}.p-6{padding:1.5rem}.py-4{padding-top:1rem;padding-bottom:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.pt-8{padding-top:2rem}.fixed{position:fixed}.relative{position:relative}.top-0{top:0}.right-0{right:0}.shadow{box-shadow:0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06)}.text-center{text-align:center}.text-gray-200{--text-opacity:1;color:#edf2f7;color:rgba(237,242,247,var(--text-opacity))}.text-gray-300{--text-opacity:1;color:#e2e8f0;color:rgba(226,232,240,var(--text-opacity))}.text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}.text-gray-500{--text-opacity:1;color:#a0aec0;color:rgba(160,174,192,var(--text-opacity))}.text-gray-600{--text-opacity:1;color:#718096;color:rgba(113,128,150,var(--text-opacity))}.text-gray-700{--text-opacity:1;color:#4a5568;color:rgba(74,85,104,var(--text-opacity))}.text-gray-900{--text-opacity:1;color:#1a202c;color:rgba(26,32,44,var(--text-opacity))}.underline{text-decoration:underline}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.w-5{width:1.25rem}.w-8{width:2rem}.w-auto{width:auto}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}@media (min-width:640px){.sm\:rounded-lg{border-radius:.5rem}.sm\:block{display:block}.sm\:items-center{align-items:center}.sm\:justify-start{justify-content:flex-start}.sm\:justify-between{justify-content:space-between}.sm\:h-20{height:5rem}.sm\:ml-0{margin-left:0}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:pt-0{padding-top:0}.sm\:text-left{text-align:left}.sm\:text-right{text-align:right}}@media (min-width:768px){.md\:border-t-0{border-top-width:0}.md\:border-l{border-left-width:1px}.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (min-width:1024px){.lg\:px-8{padding-left:2rem;padding-right:2rem}}@media (prefers-color-scheme:dark){.dark\:bg-gray-800{--bg-opacity:1;background-color:#2d3748;background-color:rgba(45,55,72,var(--bg-opacity))}.dark\:bg-gray-900{--bg-opacity:1;background-color:#1a202c;background-color:rgba(26,32,44,var(--bg-opacity))}.dark\:border-gray-700{--border-opacity:1;border-color:#4a5568;border-color:rgba(74,85,104,var(--border-opacity))}.dark\:text-white{--text-opacity:1;color:#fff;color:rgba(255,255,255,var(--text-opacity))}.dark\:text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}.dark\:text-gray-500{--tw-text-opacity:1;color:#6b7280;color:rgba(107,114,128,var(--tw-text-opacity))}}
-        </style>
-
-        <style>
-            body {
-                font-family: 'Nunito', sans-serif;
-            }
-        </style>
-    </head>
-    <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                        @endif
-                    @endauth
+ <!-- .site-header -->
+    <div class="homepage-slider slider-variation-two flexslider slider-loader">
+        <ul class="slides">
+            <li>
+                <div class="slide-overlay hidden-xs hidden-sm container">
+                    <div class="slide-inner-container">
+                        <div class="slide-header">
+                            <h3 class="slide-entry-title entry-title">
+                                <a href="property-single.html" rel="bookmark">Home in Merrick Way</a>
+                            </h3>
+                            <div class="price-and-status">
+                                <span class="price">$540,000</span>
+                                <a href="#">
+                                    <span class="property-status-tag">For Sale</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="meta-item-half hidden-md">
+                            <div class="property-meta entry-meta clearfix ">
+                                <div class="meta-item">
+                                    <i class="meta-item-icon icon-area">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container" width="30"
+                                            height="30" viewBox="0 0 48 48">
+                                            <path class="meta-icon" fill="#0DBAE8"
+                                                d="M46 16v-12c0-1.104-.896-2.001-2-2.001h-12c0-1.103-.896-1.999-2.002-1.999h-11.997c-1.105 0-2.001.896-2.001 1.999h-12c-1.104 0-2 .897-2 2.001v12c-1.104 0-2 .896-2 2v11.999c0 1.104.896 2 2 2v12.001c0 1.104.896 2 2 2h12c0 1.104.896 2 2.001 2h11.997c1.106 0 2.002-.896 2.002-2h12c1.104 0 2-.896 2-2v-12.001c1.104 0 2-.896 2-2v-11.999c0-1.104-.896-2-2-2zm-4.002 23.998c0 1.105-.895 2.002-2 2.002h-31.998c-1.105 0-2-.896-2-2.002v-31.999c0-1.104.895-1.999 2-1.999h31.998c1.105 0 2 .895 2 1.999v31.999zm-5.623-28.908c-.123-.051-.256-.078-.387-.078h-11.39c-.563 0-1.019.453-1.019 1.016 0 .562.456 1.017 1.019 1.017h8.935l-20.5 20.473v-8.926c0-.562-.455-1.017-1.018-1.017-.564 0-1.02.455-1.02 1.017v11.381c0 .562.455 1.016 1.02 1.016h11.39c.562 0 1.017-.454 1.017-1.016 0-.563-.455-1.019-1.017-1.019h-8.933l20.499-20.471v8.924c0 .563.452 1.018 1.018 1.018.561 0 1.016-.455 1.016-1.018v-11.379c0-.132-.025-.264-.076-.387-.107-.249-.304-.448-.554-.551z">
+                                            </path>
+                                        </svg>
+                                    </i>
+                                    <div class="meta-inner-wrapper">
+                                        <span class="meta-item-label">Area</span>
+                                        <span class="meta-item-value">4300<sub class="meta-item-unit">Sq Ft</sub></span>
+                                    </div>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="meta-item-icon icon-bed">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container" width="30"
+                                            height="30" viewBox="0 0 48 48">
+                                            <path class="meta-icon" fill="#0DBAE8"
+                                                d="M21 48.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v31c0 1.104-.895 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v7.001c0 1.104-.895 1.999-2 1.999zm25 37.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v31c0 1.104-.896 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v7.001c0 1.104-.896 1.999-2 1.999z">
+                                            </path>
+                                        </svg>
+                                    </i>
+                                    <div class="meta-inner-wrapper">
+                                        <span class="meta-item-label">Bedrooms</span>
+                                        <span class="meta-item-value">3</span>
+                                    </div>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="meta-item-icon icon-bath">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container" width="30"
+                                            height="30" viewBox="0 0 48 48">
+                                            <path class="meta-icon" fill="#0DBAE8"
+                                                d="M37.003 48.016h-4v-3.002h-18v3.002h-4.001v-3.699c-4.66-1.65-8.002-6.083-8.002-11.305v-4.003h-3v-3h48.006v3h-3.001v4.003c0 5.223-3.343 9.655-8.002 11.305v3.699zm-30.002-24.008h-4.001v-17.005s0-7.003 8.001-7.003h1.004c.236 0 7.995.061 7.995 8.003l5.001 4h-14l5-4-.001.01.001-.009s.938-4.001-3.999-4.001h-1s-4 0-4 3v17.005000000000003h-.001z">
+                                            </path>
+                                        </svg>
+                                    </i>
+                                    <div class="meta-inner-wrapper">
+                                        <span class="meta-item-label">Bathrooms</span>
+                                        <span class="meta-item-value">3</span>
+                                    </div>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="meta-item-icon icon-garage">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container" width="30"
+                                            height="30" viewBox="0 0 48 48">
+                                            <path class="meta-icon" fill="#0DBAE8"
+                                                d="M44 0h-40c-2.21 0-4 1.791-4 4v44h6v-40c0-1.106.895-2 2-2h31.999c1.106 0 2.001.895 2.001 2v40h6v-44c0-2.209-1.792-4-4-4zm-36 8.001h31.999v2.999h-31.999zm0 18h6v5.999h-2c-1.104 0-2 .896-2 2.001v6.001c0 1.103.896 1.998 2 1.998h2v2.001c0 1.104.896 2 2 2s2-.896 2-2v-2.001h11.999v2.001c0 1.104.896 2 2.001 2 1.104 0 2-.896 2-2v-2.001h2c1.104 0 2-.895 2-1.998v-6.001c0-1.105-.896-2.001-2-2.001h-2v-5.999h5.999v-3h-31.999v3zm8 12.999c-1.104 0-2-.895-2-1.999s.896-2 2-2 2 .896 2 2-.896 1.999-2 1.999zm10.5 2h-5c-.276 0-.5-.225-.5-.5 0-.273.224-.498.5-.498h5c.275 0 .5.225.5.498 0 .275-.225.5-.5.5zm1-2h-7c-.275 0-.5-.225-.5-.5s.226-.499.5-.499h7c.275 0 .5.224.5.499s-.225.5-.5.5zm-6.5-2.499c0-.276.224-.5.5-.5h5c.275 0 .5.224.5.5s-.225.5-.5.5h-5c-.277 0-.5-.224-.5-.5zm11 2.499c-1.104 0-2.001-.895-2.001-1.999s.896-2 2.001-2c1.104 0 2 .896 2 2s-.896 1.999-2 1.999zm0-12.999v5.999h-16v-5.999h16zm-24-13.001h31.999v3h-31.999zm0 5h31.999v3h-31.999z">
+                                            </path>
+                                        </svg>
+                                    </i>
+                                    <div class="meta-inner-wrapper">
+                                        <span class="meta-item-label">Garages</span>
+                                        <span class="meta-item-value">2</span>
+                                    </div>
+                                </div>
+                                <div class="meta-item meta-property-type">
+                                    <i class="meta-item-icon icon-ptype">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container" width="30"
+                                            height="30" viewBox="0 0 48 48">
+                                            <path class="meta-icon" fill-rule="evenodd" clip-rule="evenodd"
+                                                fill="#0DBAE8"
+                                                d="M24 48.001c-13.255 0-24-10.745-24-24.001 0-13.254 10.745-24 24-24s24 10.746 24 24c0 13.256-10.745 24.001-24 24.001zm10-27.001l-10-8-10 8v11c0 1.03.888 2.001 2 2.001h3.999v-9h8.001v9h4c1.111 0 2-.839 2-2.001v-11z">
+                                            </path>
+                                        </svg>
+                                    </i>
+                                    <div class="meta-inner-wrapper">
+                                        <span class="meta-item-label">Type</span>
+                                        <span class="meta-item-value">Single Family Home</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- .property-meta -->
+                        </div>
+                        <a class="btn-default btn-orange hidden-md" href="property-single.html">More Details<i
+                                class="fa fa-angle-right"></i></a>
+                    </div>
                 </div>
-            @endif
-
-            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-                    <svg viewBox="0 0 651 192" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto text-gray-700 sm:h-20">
-                        <g clip-path="url(#clip0)" fill="#EF3B2D">
-                            <path d="M248.032 44.676h-16.466v100.23h47.394v-14.748h-30.928V44.676zM337.091 87.202c-2.101-3.341-5.083-5.965-8.949-7.875-3.865-1.909-7.756-2.864-11.669-2.864-5.062 0-9.69.931-13.89 2.792-4.201 1.861-7.804 4.417-10.811 7.661-3.007 3.246-5.347 6.993-7.016 11.239-1.672 4.249-2.506 8.713-2.506 13.389 0 4.774.834 9.26 2.506 13.459 1.669 4.202 4.009 7.925 7.016 11.169 3.007 3.246 6.609 5.799 10.811 7.66 4.199 1.861 8.828 2.792 13.89 2.792 3.913 0 7.804-.955 11.669-2.863 3.866-1.908 6.849-4.533 8.949-7.875v9.021h15.607V78.182h-15.607v9.02zm-1.431 32.503c-.955 2.578-2.291 4.821-4.009 6.73-1.719 1.91-3.795 3.437-6.229 4.582-2.435 1.146-5.133 1.718-8.091 1.718-2.96 0-5.633-.572-8.019-1.718-2.387-1.146-4.438-2.672-6.156-4.582-1.719-1.909-3.032-4.152-3.938-6.73-.909-2.577-1.36-5.298-1.36-8.161 0-2.864.451-5.585 1.36-8.162.905-2.577 2.219-4.819 3.938-6.729 1.718-1.908 3.77-3.437 6.156-4.582 2.386-1.146 5.059-1.718 8.019-1.718 2.958 0 5.656.572 8.091 1.718 2.434 1.146 4.51 2.674 6.229 4.582 1.718 1.91 3.054 4.152 4.009 6.729.953 2.577 1.432 5.298 1.432 8.162-.001 2.863-.479 5.584-1.432 8.161zM463.954 87.202c-2.101-3.341-5.083-5.965-8.949-7.875-3.865-1.909-7.756-2.864-11.669-2.864-5.062 0-9.69.931-13.89 2.792-4.201 1.861-7.804 4.417-10.811 7.661-3.007 3.246-5.347 6.993-7.016 11.239-1.672 4.249-2.506 8.713-2.506 13.389 0 4.774.834 9.26 2.506 13.459 1.669 4.202 4.009 7.925 7.016 11.169 3.007 3.246 6.609 5.799 10.811 7.66 4.199 1.861 8.828 2.792 13.89 2.792 3.913 0 7.804-.955 11.669-2.863 3.866-1.908 6.849-4.533 8.949-7.875v9.021h15.607V78.182h-15.607v9.02zm-1.432 32.503c-.955 2.578-2.291 4.821-4.009 6.73-1.719 1.91-3.795 3.437-6.229 4.582-2.435 1.146-5.133 1.718-8.091 1.718-2.96 0-5.633-.572-8.019-1.718-2.387-1.146-4.438-2.672-6.156-4.582-1.719-1.909-3.032-4.152-3.938-6.73-.909-2.577-1.36-5.298-1.36-8.161 0-2.864.451-5.585 1.36-8.162.905-2.577 2.219-4.819 3.938-6.729 1.718-1.908 3.77-3.437 6.156-4.582 2.386-1.146 5.059-1.718 8.019-1.718 2.958 0 5.656.572 8.091 1.718 2.434 1.146 4.51 2.674 6.229 4.582 1.718 1.91 3.054 4.152 4.009 6.729.953 2.577 1.432 5.298 1.432 8.162 0 2.863-.479 5.584-1.432 8.161zM650.772 44.676h-15.606v100.23h15.606V44.676zM365.013 144.906h15.607V93.538h26.776V78.182h-42.383v66.724zM542.133 78.182l-19.616 51.096-19.616-51.096h-15.808l25.617 66.724h19.614l25.617-66.724h-15.808zM591.98 76.466c-19.112 0-34.239 15.706-34.239 35.079 0 21.416 14.641 35.079 36.239 35.079 12.088 0 19.806-4.622 29.234-14.688l-10.544-8.158c-.006.008-7.958 10.449-19.832 10.449-13.802 0-19.612-11.127-19.612-16.884h51.777c2.72-22.043-11.772-40.877-33.023-40.877zm-18.713 29.28c.12-1.284 1.917-16.884 18.589-16.884 16.671 0 18.697 15.598 18.813 16.884h-37.402zM184.068 43.892c-.024-.088-.073-.165-.104-.25-.058-.157-.108-.316-.191-.46-.056-.097-.137-.176-.203-.265-.087-.117-.161-.242-.265-.345-.085-.086-.194-.148-.29-.223-.109-.085-.206-.182-.327-.252l-.002-.001-.002-.002-35.648-20.524a2.971 2.971 0 00-2.964 0l-35.647 20.522-.002.002-.002.001c-.121.07-.219.167-.327.252-.096.075-.205.138-.29.223-.103.103-.178.228-.265.345-.066.089-.147.169-.203.265-.083.144-.133.304-.191.46-.031.085-.08.162-.104.25-.067.249-.103.51-.103.776v38.979l-29.706 17.103V24.493a3 3 0 00-.103-.776c-.024-.088-.073-.165-.104-.25-.058-.157-.108-.316-.191-.46-.056-.097-.137-.176-.203-.265-.087-.117-.161-.242-.265-.345-.085-.086-.194-.148-.29-.223-.109-.085-.206-.182-.327-.252l-.002-.001-.002-.002L40.098 1.396a2.971 2.971 0 00-2.964 0L1.487 21.919l-.002.002-.002.001c-.121.07-.219.167-.327.252-.096.075-.205.138-.29.223-.103.103-.178.228-.265.345-.066.089-.147.169-.203.265-.083.144-.133.304-.191.46-.031.085-.08.162-.104.25-.067.249-.103.51-.103.776v122.09c0 1.063.568 2.044 1.489 2.575l71.293 41.045c.156.089.324.143.49.202.078.028.15.074.23.095a2.98 2.98 0 001.524 0c.069-.018.132-.059.2-.083.176-.061.354-.119.519-.214l71.293-41.045a2.971 2.971 0 001.489-2.575v-38.979l34.158-19.666a2.971 2.971 0 001.489-2.575V44.666a3.075 3.075 0 00-.106-.774zM74.255 143.167l-29.648-16.779 31.136-17.926.001-.001 34.164-19.669 29.674 17.084-21.772 12.428-43.555 24.863zm68.329-76.259v33.841l-12.475-7.182-17.231-9.92V49.806l12.475 7.182 17.231 9.92zm2.97-39.335l29.693 17.095-29.693 17.095-29.693-17.095 29.693-17.095zM54.06 114.089l-12.475 7.182V46.733l17.231-9.92 12.475-7.182v74.537l-17.231 9.921zM38.614 7.398l29.693 17.095-29.693 17.095L8.921 24.493 38.614 7.398zM5.938 29.632l12.475 7.182 17.231 9.92v79.676l.001.005-.001.006c0 .114.032.221.045.333.017.146.021.294.059.434l.002.007c.032.117.094.222.14.334.051.124.088.255.156.371a.036.036 0 00.004.009c.061.105.149.191.222.288.081.105.149.22.244.314l.008.01c.084.083.19.142.284.215.106.083.202.178.32.247l.013.005.011.008 34.139 19.321v34.175L5.939 144.867V29.632h-.001zm136.646 115.235l-65.352 37.625V148.31l48.399-27.628 16.953-9.677v33.862zm35.646-61.22l-29.706 17.102V66.908l17.231-9.92 12.475-7.182v33.841z"/>
-                        </g>
-                    </svg>
+                <a href="property-single.html">
+                    <img src="/landing/assets/images/slider/slide-2.jpg" alt="Home in Merrick Way">
+                </a>
+            </li>
+            <li>
+                <div class="slide-overlay hidden-xs hidden-sm container">
+                    <div class="slide-inner-container">
+                        <div class="slide-header">
+                            <h3 class="slide-entry-title entry-title">
+                                <a href="property-single.html" rel="bookmark">Villa on Grand Avenue</a>
+                            </h3>
+                            <div class="price-and-status">
+                                <span class="price">$4,750 Monthly</span>
+                                <a href="#">
+                                    <span class="property-status-tag">For Rent</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="meta-item-half hidden-md">
+                            <div class="property-meta entry-meta clearfix ">
+                                <div class="meta-item">
+                                    <i class="meta-item-icon icon-area">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container" width="30"
+                                            height="30" viewBox="0 0 48 48">
+                                            <path class="meta-icon" fill="#0DBAE8"
+                                                d="M46 16v-12c0-1.104-.896-2.001-2-2.001h-12c0-1.103-.896-1.999-2.002-1.999h-11.997c-1.105 0-2.001.896-2.001 1.999h-12c-1.104 0-2 .897-2 2.001v12c-1.104 0-2 .896-2 2v11.999c0 1.104.896 2 2 2v12.001c0 1.104.896 2 2 2h12c0 1.104.896 2 2.001 2h11.997c1.106 0 2.002-.896 2.002-2h12c1.104 0 2-.896 2-2v-12.001c1.104 0 2-.896 2-2v-11.999c0-1.104-.896-2-2-2zm-4.002 23.998c0 1.105-.895 2.002-2 2.002h-31.998c-1.105 0-2-.896-2-2.002v-31.999c0-1.104.895-1.999 2-1.999h31.998c1.105 0 2 .895 2 1.999v31.999zm-5.623-28.908c-.123-.051-.256-.078-.387-.078h-11.39c-.563 0-1.019.453-1.019 1.016 0 .562.456 1.017 1.019 1.017h8.935l-20.5 20.473v-8.926c0-.562-.455-1.017-1.018-1.017-.564 0-1.02.455-1.02 1.017v11.381c0 .562.455 1.016 1.02 1.016h11.39c.562 0 1.017-.454 1.017-1.016 0-.563-.455-1.019-1.017-1.019h-8.933l20.499-20.471v8.924c0 .563.452 1.018 1.018 1.018.561 0 1.016-.455 1.016-1.018v-11.379c0-.132-.025-.264-.076-.387-.107-.249-.304-.448-.554-.551z">
+                                            </path>
+                                        </svg>
+                                    </i>
+                                    <div class="meta-inner-wrapper">
+                                        <span class="meta-item-label">Area</span>
+                                        <span class="meta-item-value">9350<sub class="meta-item-unit">Sq Ft</sub></span>
+                                    </div>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="meta-item-icon icon-bed">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container" width="30"
+                                            height="30" viewBox="0 0 48 48">
+                                            <path class="meta-icon" fill="#0DBAE8"
+                                                d="M21 48.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v31c0 1.104-.895 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v7.001c0 1.104-.895 1.999-2 1.999zm25 37.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v31c0 1.104-.896 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v7.001c0 1.104-.896 1.999-2 1.999z">
+                                            </path>
+                                        </svg>
+                                    </i>
+                                    <div class="meta-inner-wrapper">
+                                        <span class="meta-item-label">Bedrooms</span>
+                                        <span class="meta-item-value">4</span>
+                                    </div>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="meta-item-icon icon-bath">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container" width="30"
+                                            height="30" viewBox="0 0 48 48">
+                                            <path class="meta-icon" fill="#0DBAE8"
+                                                d="M37.003 48.016h-4v-3.002h-18v3.002h-4.001v-3.699c-4.66-1.65-8.002-6.083-8.002-11.305v-4.003h-3v-3h48.006v3h-3.001v4.003c0 5.223-3.343 9.655-8.002 11.305v3.699zm-30.002-24.008h-4.001v-17.005s0-7.003 8.001-7.003h1.004c.236 0 7.995.061 7.995 8.003l5.001 4h-14l5-4-.001.01.001-.009s.938-4.001-3.999-4.001h-1s-4 0-4 3v17.005000000000003h-.001z">
+                                            </path>
+                                        </svg>
+                                    </i>
+                                    <div class="meta-inner-wrapper">
+                                        <span class="meta-item-label">Bathrooms</span>
+                                        <span class="meta-item-value">4</span>
+                                    </div>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="meta-item-icon icon-garage">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container" width="30"
+                                            height="30" viewBox="0 0 48 48">
+                                            <path class="meta-icon" fill="#0DBAE8"
+                                                d="M44 0h-40c-2.21 0-4 1.791-4 4v44h6v-40c0-1.106.895-2 2-2h31.999c1.106 0 2.001.895 2.001 2v40h6v-44c0-2.209-1.792-4-4-4zm-36 8.001h31.999v2.999h-31.999zm0 18h6v5.999h-2c-1.104 0-2 .896-2 2.001v6.001c0 1.103.896 1.998 2 1.998h2v2.001c0 1.104.896 2 2 2s2-.896 2-2v-2.001h11.999v2.001c0 1.104.896 2 2.001 2 1.104 0 2-.896 2-2v-2.001h2c1.104 0 2-.895 2-1.998v-6.001c0-1.105-.896-2.001-2-2.001h-2v-5.999h5.999v-3h-31.999v3zm8 12.999c-1.104 0-2-.895-2-1.999s.896-2 2-2 2 .896 2 2-.896 1.999-2 1.999zm10.5 2h-5c-.276 0-.5-.225-.5-.5 0-.273.224-.498.5-.498h5c.275 0 .5.225.5.498 0 .275-.225.5-.5.5zm1-2h-7c-.275 0-.5-.225-.5-.5s.226-.499.5-.499h7c.275 0 .5.224.5.499s-.225.5-.5.5zm-6.5-2.499c0-.276.224-.5.5-.5h5c.275 0 .5.224.5.5s-.225.5-.5.5h-5c-.277 0-.5-.224-.5-.5zm11 2.499c-1.104 0-2.001-.895-2.001-1.999s.896-2 2.001-2c1.104 0 2 .896 2 2s-.896 1.999-2 1.999zm0-12.999v5.999h-16v-5.999h16zm-24-13.001h31.999v3h-31.999zm0 5h31.999v3h-31.999z">
+                                            </path>
+                                        </svg>
+                                    </i>
+                                    <div class="meta-inner-wrapper">
+                                        <span class="meta-item-label">Garages</span>
+                                        <span class="meta-item-value">2</span>
+                                    </div>
+                                </div>
+                                <div class="meta-item meta-property-type">
+                                    <i class="meta-item-icon icon-ptype">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container" width="30"
+                                            height="30" viewBox="0 0 48 48">
+                                            <path class="meta-icon" fill-rule="evenodd" clip-rule="evenodd"
+                                                fill="#0DBAE8"
+                                                d="M24 48.001c-13.255 0-24-10.745-24-24.001 0-13.254 10.745-24 24-24s24 10.746 24 24c0 13.256-10.745 24.001-24 24.001zm10-27.001l-10-8-10 8v11c0 1.03.888 2.001 2 2.001h3.999v-9h8.001v9h4c1.111 0 2-.839 2-2.001v-11z">
+                                            </path>
+                                        </svg>
+                                    </i>
+                                    <div class="meta-inner-wrapper">
+                                        <span class="meta-item-label">Type</span>
+                                        <span class="meta-item-value">Villa</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- .property-meta -->
+                        </div>
+                        <a class="btn-default btn-orange hidden-md" href="property-single.html">More Details<i
+                                class="fa fa-angle-right"></i></a>
+                    </div>
                 </div>
-
-                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                    <div class="grid grid-cols-1 md:grid-cols-2">
-                        <div class="p-6">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laravel.com/docs" class="underline text-gray-900 dark:text-white">Documentation</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laravel has wonderful, thorough documentation covering every aspect of the framework. Whether you are new to the framework or have previous experience with Laravel, we recommend reading all of the documentation from beginning to end.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laracasts.com" class="underline text-gray-900 dark:text-white">Laracasts</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript development. Check them out, see for yourself, and massively level up your development skills in the process.
-                                </div>
+                <a href="property-single.html">
+                    <img src="/landing/assets/images/slider/slide-6.jpg" alt="Villa on Grand Avenue">
+                </a>
+            </li>
+            <li>
+                <div class="slide-overlay hidden-xs hidden-sm container">
+                    <div class="slide-inner-container">
+                        <div class="slide-header">
+                            <h3 class="slide-entry-title entry-title">
+                                <a href="property-single.html" rel="bookmark">Home in Coral Gables</a>
+                            </h3>
+                            <div class="price-and-status">
+                                <span class="price">$850,000</span>
+                                <a href="#">
+                                    <span class="property-status-tag">For Sale</span>
+                                </a>
                             </div>
                         </div>
-
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laravel-news.com/" class="underline text-gray-900 dark:text-white">Laravel News</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laravel News is a community driven portal and newsletter aggregating all of the latest and most important news in the Laravel ecosystem, including new package releases and tutorials.
+                        <div class="meta-item-half hidden-md">
+                            <div class="property-meta entry-meta clearfix ">
+                                <div class="meta-item">
+                                    <i class="meta-item-icon icon-area">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container" width="30"
+                                            height="30" viewBox="0 0 48 48">
+                                            <path class="meta-icon" fill="#0DBAE8"
+                                                d="M46 16v-12c0-1.104-.896-2.001-2-2.001h-12c0-1.103-.896-1.999-2.002-1.999h-11.997c-1.105 0-2.001.896-2.001 1.999h-12c-1.104 0-2 .897-2 2.001v12c-1.104 0-2 .896-2 2v11.999c0 1.104.896 2 2 2v12.001c0 1.104.896 2 2 2h12c0 1.104.896 2 2.001 2h11.997c1.106 0 2.002-.896 2.002-2h12c1.104 0 2-.896 2-2v-12.001c1.104 0 2-.896 2-2v-11.999c0-1.104-.896-2-2-2zm-4.002 23.998c0 1.105-.895 2.002-2 2.002h-31.998c-1.105 0-2-.896-2-2.002v-31.999c0-1.104.895-1.999 2-1.999h31.998c1.105 0 2 .895 2 1.999v31.999zm-5.623-28.908c-.123-.051-.256-.078-.387-.078h-11.39c-.563 0-1.019.453-1.019 1.016 0 .562.456 1.017 1.019 1.017h8.935l-20.5 20.473v-8.926c0-.562-.455-1.017-1.018-1.017-.564 0-1.02.455-1.02 1.017v11.381c0 .562.455 1.016 1.02 1.016h11.39c.562 0 1.017-.454 1.017-1.016 0-.563-.455-1.019-1.017-1.019h-8.933l20.499-20.471v8.924c0 .563.452 1.018 1.018 1.018.561 0 1.016-.455 1.016-1.018v-11.379c0-.132-.025-.264-.076-.387-.107-.249-.304-.448-.554-.551z">
+                                            </path>
+                                        </svg>
+                                    </i>
+                                    <div class="meta-inner-wrapper">
+                                        <span class="meta-item-label">Area</span>
+                                        <span class="meta-item-value">3800<sub class="meta-item-unit">Sq Ft</sub></span>
+                                    </div>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="meta-item-icon icon-bed">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container" width="30"
+                                            height="30" viewBox="0 0 48 48">
+                                            <path class="meta-icon" fill="#0DBAE8"
+                                                d="M21 48.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v31c0 1.104-.895 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v7.001c0 1.104-.895 1.999-2 1.999zm25 37.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v31c0 1.104-.896 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v7.001c0 1.104-.896 1.999-2 1.999z">
+                                            </path>
+                                        </svg>
+                                    </i>
+                                    <div class="meta-inner-wrapper">
+                                        <span class="meta-item-label">Bedrooms</span>
+                                        <span class="meta-item-value">4</span>
+                                    </div>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="meta-item-icon icon-bath">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container" width="30"
+                                            height="30" viewBox="0 0 48 48">
+                                            <path class="meta-icon" fill="#0DBAE8"
+                                                d="M37.003 48.016h-4v-3.002h-18v3.002h-4.001v-3.699c-4.66-1.65-8.002-6.083-8.002-11.305v-4.003h-3v-3h48.006v3h-3.001v4.003c0 5.223-3.343 9.655-8.002 11.305v3.699zm-30.002-24.008h-4.001v-17.005s0-7.003 8.001-7.003h1.004c.236 0 7.995.061 7.995 8.003l5.001 4h-14l5-4-.001.01.001-.009s.938-4.001-3.999-4.001h-1s-4 0-4 3v17.005000000000003h-.001z">
+                                            </path>
+                                        </svg>
+                                    </i>
+                                    <div class="meta-inner-wrapper">
+                                        <span class="meta-item-label">Bathrooms</span>
+                                        <span class="meta-item-value">4.5</span>
+                                    </div>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="meta-item-icon icon-garage">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container" width="30"
+                                            height="30" viewBox="0 0 48 48">
+                                            <path class="meta-icon" fill="#0DBAE8"
+                                                d="M44 0h-40c-2.21 0-4 1.791-4 4v44h6v-40c0-1.106.895-2 2-2h31.999c1.106 0 2.001.895 2.001 2v40h6v-44c0-2.209-1.792-4-4-4zm-36 8.001h31.999v2.999h-31.999zm0 18h6v5.999h-2c-1.104 0-2 .896-2 2.001v6.001c0 1.103.896 1.998 2 1.998h2v2.001c0 1.104.896 2 2 2s2-.896 2-2v-2.001h11.999v2.001c0 1.104.896 2 2.001 2 1.104 0 2-.896 2-2v-2.001h2c1.104 0 2-.895 2-1.998v-6.001c0-1.105-.896-2.001-2-2.001h-2v-5.999h5.999v-3h-31.999v3zm8 12.999c-1.104 0-2-.895-2-1.999s.896-2 2-2 2 .896 2 2-.896 1.999-2 1.999zm10.5 2h-5c-.276 0-.5-.225-.5-.5 0-.273.224-.498.5-.498h5c.275 0 .5.225.5.498 0 .275-.225.5-.5.5zm1-2h-7c-.275 0-.5-.225-.5-.5s.226-.499.5-.499h7c.275 0 .5.224.5.499s-.225.5-.5.5zm-6.5-2.499c0-.276.224-.5.5-.5h5c.275 0 .5.224.5.5s-.225.5-.5.5h-5c-.277 0-.5-.224-.5-.5zm11 2.499c-1.104 0-2.001-.895-2.001-1.999s.896-2 2.001-2c1.104 0 2 .896 2 2s-.896 1.999-2 1.999zm0-12.999v5.999h-16v-5.999h16zm-24-13.001h31.999v3h-31.999zm0 5h31.999v3h-31.999z">
+                                            </path>
+                                        </svg>
+                                    </i>
+                                    <div class="meta-inner-wrapper">
+                                        <span class="meta-item-label">Garages</span>
+                                        <span class="meta-item-value">2</span>
+                                    </div>
+                                </div>
+                                <div class="meta-item meta-property-type">
+                                    <i class="meta-item-icon icon-ptype">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container" width="30"
+                                            height="30" viewBox="0 0 48 48">
+                                            <path class="meta-icon" fill-rule="evenodd" clip-rule="evenodd"
+                                                fill="#0DBAE8"
+                                                d="M24 48.001c-13.255 0-24-10.745-24-24.001 0-13.254 10.745-24 24-24s24 10.746 24 24c0 13.256-10.745 24.001-24 24.001zm10-27.001l-10-8-10 8v11c0 1.03.888 2.001 2 2.001h3.999v-9h8.001v9h4c1.111 0 2-.839 2-2.001v-11z">
+                                            </path>
+                                        </svg>
+                                    </i>
+                                    <div class="meta-inner-wrapper">
+                                        <span class="meta-item-label">Type</span>
+                                        <span class="meta-item-value">Single Family Home</span>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- .property-meta -->
                         </div>
-
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-l">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold text-gray-900 dark:text-white">Vibrant Ecosystem</div>
+                        <a class="btn-default btn-orange hidden-md" href="property-single.html">More Details<i
+                                class="fa fa-angle-right"></i></a>
+                    </div>
+                </div>
+                <a href="property-single.html">
+                    <img src="/landing/assets/images/slider/slide-1.jpg" alt="Home in Coral Gables">
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div id="content-wrapper" class="site-content-wrapper">
+        <div id="content" class="site-content layout-wide">
+            <main id="main" class="site-main">
+                <section class="advance-search main-advance-search">
+                    <div class="container">
+                        <h3 class="search-title">Quick Search</h3>
+                        <form class="advance-search-form" action="#" method="get">
+                            <div class="option-bar property-location">
+                                <select name="location" id="location" class="search-select">
+                                    <option value="any">Location (Any)</option>
+                                    <option value="miami">Miami</option>
+                                    <option value="little-havana">- Little Havana</option>
+                                    <option value="perrine">- Perrine</option>
+                                    <option value="doral">- Doral</option>
+                                </select>
                             </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laravel's robust library of first-party tools and libraries, such as <a href="https://forge.laravel.com" class="underline">Forge</a>, <a href="https://vapor.laravel.com" class="underline">Vapor</a>, <a href="https://nova.laravel.com" class="underline">Nova</a>, and <a href="https://envoyer.io" class="underline">Envoyer</a> help you take your projects to the next level. Pair them with powerful open source libraries like <a href="https://laravel.com/docs/billing" class="underline">Cashier</a>, <a href="https://laravel.com/docs/dusk" class="underline">Dusk</a>, <a href="https://laravel.com/docs/broadcasting" class="underline">Echo</a>, <a href="https://laravel.com/docs/horizon" class="underline">Horizon</a>, <a href="https://laravel.com/docs/sanctum" class="underline">Sanctum</a>, <a href="https://laravel.com/docs/telescope" class="underline">Telescope</a>, and more.
+                            <div class="option-bar property-type">
+                                <select name="type" id="select-property-type" class="search-select">
+                                    <option value="any" selected="selected">Property Type (Any)</option>
+                                    <option value="commercial"> Commercial</option>
+                                    <option value="office">- Office</option>
+                                    <option value="shop">- Shop</option>
+                                    <option value="residential"> Residential</option>
+                                    <option value="apartment">- Apartment</option>
+                                    <option value="apartment-building">- Apartment Building</option>
+                                    <option value="condominium">- Condominium</option>
+                                    <option value="single-family-home">- Single Family Home</option>
+                                    <option value="villa">- Villa</option>
+                                </select>
+                            </div>
+                            <div class="option-bar property-status">
+                                <select name="status" id="select-status" class="search-select">
+                                    <option value="any" selected="selected">Property Status (Any)</option>
+                                    <option value="for-rent"> For Rent</option>
+                                    <option value="for-sale"> For Sale</option>
+                                </select>
+                            </div>
+                            <div class="option-bar property-keyword">
+                                <input type="text" name="keyword" id="keyword-txt" value="" placeholder="Keyword">
+                            </div>
+                            <div class="option-bar property-id">
+                                <input type="text" name="property-id" id="property-id-txt" value=""
+                                    placeholder="Property ID">
+                            </div>
+                            <div class="option-bar property-bedrooms">
+                                <select name="bedrooms" id="select-bedrooms" class="search-select">
+                                    <option value="any" selected="selected">Min Beds (Any)</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+                            <div class="option-bar property-bathrooms">
+                                <select name="bathrooms" id="select-bathrooms" class="search-select">
+                                    <option value="any" selected="selected">Min Baths (Any)</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+                            <div class="option-bar property-min-price">
+                                <select name="min-price" id="select-min-price" class="search-select">
+                                    <option value="any" selected="selected">Min Price (Any)</option>
+                                    <option value="1000">$1,000</option>
+                                    <option value="5000">$5,000</option>
+                                    <option value="10000">$10,000</option>
+                                    <option value="50000">$50,000</option>
+                                    <option value="100000">$100,000</option>
+                                    <option value="200000">$200,000</option>
+                                    <option value="300000">$300,000</option>
+                                    <option value="400000">$400,000</option>
+                                    <option value="500000">$500,000</option>
+                                    <option value="600000">$600,000</option>
+                                    <option value="700000">$700,000</option>
+                                    <option value="800000">$800,000</option>
+                                    <option value="900000">$900,000</option>
+                                    <option value="1000000">$1,000,000</option>
+                                    <option value="1500000">$1,500,000</option>
+                                    <option value="2000000">$2,000,000</option>
+                                    <option value="2500000">$2,500,000</option>
+                                    <option value="5000000">$5,000,000</option>
+                                </select>
+                            </div>
+                            <div class="option-bar property-max-price">
+                                <select name="max-price" id="select-max-price" class="search-select">
+                                    <option value="any" selected="selected">Max Price (Any)</option>
+                                    <option value="5000">$5,000</option>
+                                    <option value="10000">$10,000</option>
+                                    <option value="50000">$50,000</option>
+                                    <option value="100000">$100,000</option>
+                                    <option value="200000">$200,000</option>
+                                    <option value="300000">$300,000</option>
+                                    <option value="400000">$400,000</option>
+                                    <option value="500000">$500,000</option>
+                                    <option value="600000">$600,000</option>
+                                    <option value="700000">$700,000</option>
+                                    <option value="800000">$800,000</option>
+                                    <option value="900000">$900,000</option>
+                                    <option value="1000000">$1,000,000</option>
+                                    <option value="1500000">$1,500,000</option>
+                                    <option value="2000000">$2,000,000</option>
+                                    <option value="2500000">$2,500,000</option>
+                                    <option value="5000000">$5,000,000</option>
+                                    <option value="10000000">$10,000,000</option>
+                                </select>
+                            </div>
+                            <div class="option-bar property-min-area">
+                                <input type="text" name="min-area" id="min-area" pattern="[0-9]+" value=""
+                                    placeholder="Min Area (sq ft)" title="Please only provide digits!">
+                            </div>
+                            <div class="option-bar property-max-area">
+                                <input type="text" name="max-area" id="max-area" pattern="[0-9]+" value=""
+                                    placeholder="Max Area (sq ft)" title="Please only provide digits!">
+                            </div>
+                            <div class="option-bar form-control-buttons">
+                                <input type="submit" value="Search" class="form-submit-btn">
+                            </div>
+                            <div class="extra-search-fields">
+                                <h5 class="title"><span class="text-wrapper">Looking for certain features</span></h5>
+                                <ul class="features-checkboxes-wrapper list-unstyled clearfix">
+                                    <li><span class="option-set"><input type="checkbox" name="features[]"
+                                                id="feature-2-stories" value="2-stories"><label
+                                                for="feature-2-stories">2 Stories<small>(6)</small></label></span></li>
+                                    <li><span class="option-set"><input type="checkbox" name="features[]"
+                                                id="feature-26-ceilings" value="26-ceilings"><label
+                                                for="feature-26-ceilings">26' Ceilings<small>(1)</small></label></span>
+                                    </li>
+                                    <li><span class="option-set"><input type="checkbox" name="features[]"
+                                                id="feature-bike-path" value="bike-path"><label
+                                                for="feature-bike-path">Bike Path<small>(1)</small></label></span></li>
+                                    <li><span class="option-set"><input type="checkbox" name="features[]"
+                                                id="feature-central-cooling" value="central-cooling"><label
+                                                for="feature-central-cooling">Central
+                                                Cooling<small>(4)</small></label></span></li>
+                                    <li><span class="option-set"><input type="checkbox" name="features[]"
+                                                id="feature-central-heating" value="central-heating"><label
+                                                for="feature-central-heating">Central
+                                                Heating<small>(3)</small></label></span></li>
+                                    <li><span class="option-set"><input type="checkbox" name="features[]"
+                                                id="feature-dual-sinks" value="dual-sinks"><label
+                                                for="feature-dual-sinks">Dual Sinks<small>(5)</small></label></span>
+                                    </li>
+                                    <li><span class="option-set"><input type="checkbox" name="features[]"
+                                                id="feature-electric-range" value="electric-range"><label
+                                                for="feature-electric-range">Electric
+                                                Range<small>(5)</small></label></span></li>
+                                    <li><span class="option-set"><input type="checkbox" name="features[]"
+                                                id="feature-emergency-exit" value="emergency-exit"><label
+                                                for="feature-emergency-exit">Emergency
+                                                Exit<small>(2)</small></label></span></li>
+                                    <li><span class="option-set"><input type="checkbox" name="features[]"
+                                                id="feature-fire-alarm" value="fire-alarm"><label
+                                                for="feature-fire-alarm">Fire Alarm<small>(3)</small></label></span>
+                                    </li>
+                                    <li><span class="option-set"><input type="checkbox" name="features[]"
+                                                id="feature-fire-place" value="fire-place"><label
+                                                for="feature-fire-place">Fire Place<small>(4)</small></label></span>
+                                    </li>
+                                    <li><span class="option-set"><input type="checkbox" name="features[]"
+                                                id="feature-home-theater" value="home-theater"><label
+                                                for="feature-home-theater">Home Theater<small>(3)</small></label></span>
+                                    </li>
+                                    <li><span class="option-set"><input type="checkbox" name="features[]"
+                                                id="feature-hurricane-shutters" value="hurricane-shutters"><label
+                                                for="feature-hurricane-shutters">Hurricane
+                                                Shutters<small>(1)</small></label></span></li>
+                                    <li><span class="option-set"><input type="checkbox" name="features[]"
+                                                id="feature-jog-path" value="jog-path"><label for="feature-jog-path">Jog
+                                                Path<small>(1)</small></label></span></li>
+                                    <li><span class="option-set"><input type="checkbox" name="features[]"
+                                                id="feature-laundry-room" value="laundry-room"><label
+                                                for="feature-laundry-room">Laundry Room<small>(3)</small></label></span>
+                                    </li>
+                                    <li><span class="option-set"><input type="checkbox" name="features[]"
+                                                id="feature-lawn" value="lawn"><label
+                                                for="feature-lawn">Lawn<small>(5)</small></label></span></li>
+                                    <li><span class="option-set"><input type="checkbox" name="features[]"
+                                                id="feature-marble-floors" value="marble-floors"><label
+                                                for="feature-marble-floors">Marble
+                                                Floors<small>(5)</small></label></span></li>
+                                    <li><span class="option-set"><input type="checkbox" name="features[]"
+                                                id="feature-next-to-busy-way" value="next-to-busy-way"><label
+                                                for="feature-next-to-busy-way">Next To Busy
+                                                Way<small>(1)</small></label></span></li>
+                                    <li><span class="option-set"><input type="checkbox" name="features[]"
+                                                id="feature-swimming-pool" value="swimming-pool"><label
+                                                for="feature-swimming-pool">Swimming
+                                                Pool<small>(4)</small></label></span></li>
+                                </ul>
+                            </div>
+                            <!-- .extra-search-fields -->
+                        </form>
+                        <!-- .advance-search-form -->
+                    </div>
+                    <!-- .container -->
+                </section>
+                <!-- .advance-search -->
+                <div class="property-listing-two">
+                    <div class="container">
+                        <div class="row zero-horizontal-margin">
+                            <div class="col-xs-6 custom-col-xs-12 col-md-4 col-lg-3 zero-horizontal-padding">
+                                <article class="hentry property-listing-home meta-item-half">
+                                    <div class="property-thumbnail">
+                                        <a href="#"><img class="img-responsive"
+                                                src="/landing/assets/images/property/property-1-660x600.jpg"
+                                                alt="Thumbnail"></a>
+                                    </div>
+                                    <!-- .property-thumbnail -->
+                                    <div class="property-description">
+                                        <header class="entry-header">
+                                            <h4 class="entry-title"><a href="#" rel="bookmark">Home in Merrick Way</a>
+                                            </h4>
+                                            <div class="price-and-status">
+                                                <span class="price">$540,000</span><a href="#"><span
+                                                        class="property-status-tag">For Sale</span></a>
+                                            </div>
+                                        </header>
+                                        <div class="property-meta entry-meta clearfix">
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-area">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M46 16v-12c0-1.104-.896-2.001-2-2.001h-12c0-1.103-.896-1.999-2.002-1.999h-11.997c-1.105 0-2.001.896-2.001 1.999h-12c-1.104 0-2 .897-2 2.001v12c-1.104 0-2 .896-2 2v11.999c0 1.104.896 2 2 2v12.001c0 1.104.896 2 2 2h12c0 1.104.896 2 2.001 2h11.997c1.106 0 2.002-.896 2.002-2h12c1.104 0 2-.896 2-2v-12.001c1.104 0 2-.896 2-2v-11.999c0-1.104-.896-2-2-2zm-4.002 23.998c0 1.105-.895 2.002-2 2.002h-31.998c-1.105 0-2-.896-2-2.002v-31.999c0-1.104.895-1.999 2-1.999h31.998c1.105 0 2 .895 2 1.999v31.999zm-5.623-28.908c-.123-.051-.256-.078-.387-.078h-11.39c-.563 0-1.019.453-1.019 1.016 0 .562.456 1.017 1.019 1.017h8.935l-20.5 20.473v-8.926c0-.562-.455-1.017-1.018-1.017-.564 0-1.02.455-1.02 1.017v11.381c0 .562.455 1.016 1.02 1.016h11.39c.562 0 1.017-.454 1.017-1.016 0-.563-.455-1.019-1.017-1.019h-8.933l20.499-20.471v8.924c0 .563.452 1.018 1.018 1.018.561 0 1.016-.455 1.016-1.018v-11.379c0-.132-.025-.264-.076-.387-.107-.249-.304-.448-.554-.551z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Area</span>
+                                                    <span class="meta-item-value">4300<sub class="meta-item-unit">Sq
+                                                            Ft</sub></span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-bed">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M21 48.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v31c0 1.104-.895 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v7.001c0 1.104-.895 1.999-2 1.999zm25 37.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v31c0 1.104-.896 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v7.001c0 1.104-.896 1.999-2 1.999z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Bedrooms</span>
+                                                    <span class="meta-item-value">3</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-bath">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M37.003 48.016h-4v-3.002h-18v3.002h-4.001v-3.699c-4.66-1.65-8.002-6.083-8.002-11.305v-4.003h-3v-3h48.006v3h-3.001v4.003c0 5.223-3.343 9.655-8.002 11.305v3.699zm-30.002-24.008h-4.001v-17.005s0-7.003 8.001-7.003h1.004c.236 0 7.995.061 7.995 8.003l5.001 4h-14l5-4-.001.01.001-.009s.938-4.001-3.999-4.001h-1s-4 0-4 3v17.005000000000003h-.001z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Bathrooms</span>
+                                                    <span class="meta-item-value">3</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-garage">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M44 0h-40c-2.21 0-4 1.791-4 4v44h6v-40c0-1.106.895-2 2-2h31.999c1.106 0 2.001.895 2.001 2v40h6v-44c0-2.209-1.792-4-4-4zm-36 8.001h31.999v2.999h-31.999zm0 18h6v5.999h-2c-1.104 0-2 .896-2 2.001v6.001c0 1.103.896 1.998 2 1.998h2v2.001c0 1.104.896 2 2 2s2-.896 2-2v-2.001h11.999v2.001c0 1.104.896 2 2.001 2 1.104 0 2-.896 2-2v-2.001h2c1.104 0 2-.895 2-1.998v-6.001c0-1.105-.896-2.001-2-2.001h-2v-5.999h5.999v-3h-31.999v3zm8 12.999c-1.104 0-2-.895-2-1.999s.896-2 2-2 2 .896 2 2-.896 1.999-2 1.999zm10.5 2h-5c-.276 0-.5-.225-.5-.5 0-.273.224-.498.5-.498h5c.275 0 .5.225.5.498 0 .275-.225.5-.5.5zm1-2h-7c-.275 0-.5-.225-.5-.5s.226-.499.5-.499h7c.275 0 .5.224.5.499s-.225.5-.5.5zm-6.5-2.499c0-.276.224-.5.5-.5h5c.275 0 .5.224.5.5s-.225.5-.5.5h-5c-.277 0-.5-.224-.5-.5zm11 2.499c-1.104 0-2.001-.895-2.001-1.999s.896-2 2.001-2c1.104 0 2 .896 2 2s-.896 1.999-2 1.999zm0-12.999v5.999h-16v-5.999h16zm-24-13.001h31.999v3h-31.999zm0 5h31.999v3h-31.999z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Garages</span>
+                                                    <span class="meta-item-value">2</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- .property-meta -->
+                                    </div>
+                                    <!-- .property-description -->
+                                </article>
+                            </div>
+                            <div class="col-xs-6 custom-col-xs-12 col-md-4 col-lg-3 zero-horizontal-padding">
+                                <article class="hentry property-listing-home meta-item-half">
+                                    <div class="property-thumbnail">
+                                        <a href="#"><img class="img-responsive"
+                                                src="/landing/assets/images/property/property-12-660x600.jpg"
+                                                alt="Thumbnail"></a>
+                                    </div>
+                                    <!-- .property-thumbnail -->
+                                    <div class="property-description">
+                                        <header class="entry-header">
+                                            <h4 class="entry-title"><a href="#" rel="bookmark">Villa in Coral Gables</a>
+                                            </h4>
+                                            <div class="price-and-status">
+                                                <span class="price">$825,000</span><a href="#"><span
+                                                        class="property-status-tag">For Sale</span></a>
+                                            </div>
+                                        </header>
+                                        <div class="property-meta entry-meta clearfix">
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-area">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M46 16v-12c0-1.104-.896-2.001-2-2.001h-12c0-1.103-.896-1.999-2.002-1.999h-11.997c-1.105 0-2.001.896-2.001 1.999h-12c-1.104 0-2 .897-2 2.001v12c-1.104 0-2 .896-2 2v11.999c0 1.104.896 2 2 2v12.001c0 1.104.896 2 2 2h12c0 1.104.896 2 2.001 2h11.997c1.106 0 2.002-.896 2.002-2h12c1.104 0 2-.896 2-2v-12.001c1.104 0 2-.896 2-2v-11.999c0-1.104-.896-2-2-2zm-4.002 23.998c0 1.105-.895 2.002-2 2.002h-31.998c-1.105 0-2-.896-2-2.002v-31.999c0-1.104.895-1.999 2-1.999h31.998c1.105 0 2 .895 2 1.999v31.999zm-5.623-28.908c-.123-.051-.256-.078-.387-.078h-11.39c-.563 0-1.019.453-1.019 1.016 0 .562.456 1.017 1.019 1.017h8.935l-20.5 20.473v-8.926c0-.562-.455-1.017-1.018-1.017-.564 0-1.02.455-1.02 1.017v11.381c0 .562.455 1.016 1.02 1.016h11.39c.562 0 1.017-.454 1.017-1.016 0-.563-.455-1.019-1.017-1.019h-8.933l20.499-20.471v8.924c0 .563.452 1.018 1.018 1.018.561 0 1.016-.455 1.016-1.018v-11.379c0-.132-.025-.264-.076-.387-.107-.249-.304-.448-.554-.551z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Area</span>
+                                                    <span class="meta-item-value">3500<sub class="meta-item-unit">Sq
+                                                            Ft</sub></span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-bed">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M21 48.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v31c0 1.104-.895 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v7.001c0 1.104-.895 1.999-2 1.999zm25 37.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v31c0 1.104-.896 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v7.001c0 1.104-.896 1.999-2 1.999z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Bedrooms</span>
+                                                    <span class="meta-item-value">3</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-bath">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M37.003 48.016h-4v-3.002h-18v3.002h-4.001v-3.699c-4.66-1.65-8.002-6.083-8.002-11.305v-4.003h-3v-3h48.006v3h-3.001v4.003c0 5.223-3.343 9.655-8.002 11.305v3.699zm-30.002-24.008h-4.001v-17.005s0-7.003 8.001-7.003h1.004c.236 0 7.995.061 7.995 8.003l5.001 4h-14l5-4-.001.01.001-.009s.938-4.001-3.999-4.001h-1s-4 0-4 3v17.005000000000003h-.001z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Bathrooms</span>
+                                                    <span class="meta-item-value">3.5</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-garage">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M44 0h-40c-2.21 0-4 1.791-4 4v44h6v-40c0-1.106.895-2 2-2h31.999c1.106 0 2.001.895 2.001 2v40h6v-44c0-2.209-1.792-4-4-4zm-36 8.001h31.999v2.999h-31.999zm0 18h6v5.999h-2c-1.104 0-2 .896-2 2.001v6.001c0 1.103.896 1.998 2 1.998h2v2.001c0 1.104.896 2 2 2s2-.896 2-2v-2.001h11.999v2.001c0 1.104.896 2 2.001 2 1.104 0 2-.896 2-2v-2.001h2c1.104 0 2-.895 2-1.998v-6.001c0-1.105-.896-2.001-2-2.001h-2v-5.999h5.999v-3h-31.999v3zm8 12.999c-1.104 0-2-.895-2-1.999s.896-2 2-2 2 .896 2 2-.896 1.999-2 1.999zm10.5 2h-5c-.276 0-.5-.225-.5-.5 0-.273.224-.498.5-.498h5c.275 0 .5.225.5.498 0 .275-.225.5-.5.5zm1-2h-7c-.275 0-.5-.225-.5-.5s.226-.499.5-.499h7c.275 0 .5.224.5.499s-.225.5-.5.5zm-6.5-2.499c0-.276.224-.5.5-.5h5c.275 0 .5.224.5.5s-.225.5-.5.5h-5c-.277 0-.5-.224-.5-.5zm11 2.499c-1.104 0-2.001-.895-2.001-1.999s.896-2 2.001-2c1.104 0 2 .896 2 2s-.896 1.999-2 1.999zm0-12.999v5.999h-16v-5.999h16zm-24-13.001h31.999v3h-31.999zm0 5h31.999v3h-31.999z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Garages</span>
+                                                    <span class="meta-item-value">2</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- .property-meta -->
+                                    </div>
+                                    <!-- .property-description -->
+                                </article>
+                            </div>
+                            <div class="col-xs-6 custom-col-xs-12 col-md-4 col-lg-3 zero-horizontal-padding">
+                                <article class="hentry property-listing-home meta-item-half">
+                                    <div class="property-thumbnail">
+                                        <a href="#"><img class="img-responsive"
+                                                src="/landing/assets/images/property/property-10-660x600.jpg"
+                                                alt="Thumbnail"></a>
+                                    </div>
+                                    <!-- .property-thumbnail -->
+                                    <div class="property-description">
+                                        <header class="entry-header">
+                                            <h4 class="entry-title"><a href="#" rel="bookmark">Street Food
+                                                    Restaurant</a></h4>
+                                            <div class="price-and-status">
+                                                <span class="price">$1,600</span><a href="#"><span
+                                                        class="property-status-tag">For Rent</span></a>
+                                            </div>
+                                        </header>
+                                        <div class="property-meta entry-meta clearfix">
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-area">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M46 16v-12c0-1.104-.896-2.001-2-2.001h-12c0-1.103-.896-1.999-2.002-1.999h-11.997c-1.105 0-2.001.896-2.001 1.999h-12c-1.104 0-2 .897-2 2.001v12c-1.104 0-2 .896-2 2v11.999c0 1.104.896 2 2 2v12.001c0 1.104.896 2 2 2h12c0 1.104.896 2 2.001 2h11.997c1.106 0 2.002-.896 2.002-2h12c1.104 0 2-.896 2-2v-12.001c1.104 0 2-.896 2-2v-11.999c0-1.104-.896-2-2-2zm-4.002 23.998c0 1.105-.895 2.002-2 2.002h-31.998c-1.105 0-2-.896-2-2.002v-31.999c0-1.104.895-1.999 2-1.999h31.998c1.105 0 2 .895 2 1.999v31.999zm-5.623-28.908c-.123-.051-.256-.078-.387-.078h-11.39c-.563 0-1.019.453-1.019 1.016 0 .562.456 1.017 1.019 1.017h8.935l-20.5 20.473v-8.926c0-.562-.455-1.017-1.018-1.017-.564 0-1.02.455-1.02 1.017v11.381c0 .562.455 1.016 1.02 1.016h11.39c.562 0 1.017-.454 1.017-1.016 0-.563-.455-1.019-1.017-1.019h-8.933l20.499-20.471v8.924c0 .563.452 1.018 1.018 1.018.561 0 1.016-.455 1.016-1.018v-11.379c0-.132-.025-.264-.076-.387-.107-.249-.304-.448-.554-.551z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Area</span>
+                                                    <span class="meta-item-value">950<sub class="meta-item-unit">Sq
+                                                            Ft</sub></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- .property-meta -->
+                                    </div>
+                                    <!-- .property-description -->
+                                </article>
+                            </div>
+                            <div class="col-xs-6 custom-col-xs-12 col-md-4 col-lg-3 zero-horizontal-padding">
+                                <article class="hentry property-listing-home meta-item-half">
+                                    <div class="property-thumbnail">
+                                        <a href="#"><img class="img-responsive"
+                                                src="/landing/assets/images/property/property-9-660x600.jpg"
+                                                alt="Thumbnail"></a>
+                                    </div>
+                                    <!-- .property-thumbnail -->
+                                    <div class="property-description">
+                                        <header class="entry-header">
+                                            <h4 class="entry-title"><a href="#" rel="bookmark">Villa on Hollywood
+                                                    Boulevard</a></h4>
+                                            <div class="price-and-status">
+                                                <span class="price">$740,000</span><a href="#"><span
+                                                        class="property-status-tag">For Sale</span></a>
+                                            </div>
+                                        </header>
+                                        <div class="property-meta entry-meta clearfix">
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-area">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M46 16v-12c0-1.104-.896-2.001-2-2.001h-12c0-1.103-.896-1.999-2.002-1.999h-11.997c-1.105 0-2.001.896-2.001 1.999h-12c-1.104 0-2 .897-2 2.001v12c-1.104 0-2 .896-2 2v11.999c0 1.104.896 2 2 2v12.001c0 1.104.896 2 2 2h12c0 1.104.896 2 2.001 2h11.997c1.106 0 2.002-.896 2.002-2h12c1.104 0 2-.896 2-2v-12.001c1.104 0 2-.896 2-2v-11.999c0-1.104-.896-2-2-2zm-4.002 23.998c0 1.105-.895 2.002-2 2.002h-31.998c-1.105 0-2-.896-2-2.002v-31.999c0-1.104.895-1.999 2-1.999h31.998c1.105 0 2 .895 2 1.999v31.999zm-5.623-28.908c-.123-.051-.256-.078-.387-.078h-11.39c-.563 0-1.019.453-1.019 1.016 0 .562.456 1.017 1.019 1.017h8.935l-20.5 20.473v-8.926c0-.562-.455-1.017-1.018-1.017-.564 0-1.02.455-1.02 1.017v11.381c0 .562.455 1.016 1.02 1.016h11.39c.562 0 1.017-.454 1.017-1.016 0-.563-.455-1.019-1.017-1.019h-8.933l20.499-20.471v8.924c0 .563.452 1.018 1.018 1.018.561 0 1.016-.455 1.016-1.018v-11.379c0-.132-.025-.264-.076-.387-.107-.249-.304-.448-.554-.551z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Area</span>
+                                                    <span class="meta-item-value">4530<sub class="meta-item-unit">Sq
+                                                            Ft</sub></span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-bed">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M21 48.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v31c0 1.104-.895 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v7.001c0 1.104-.895 1.999-2 1.999zm25 37.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v31c0 1.104-.896 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v7.001c0 1.104-.896 1.999-2 1.999z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Bedrooms</span>
+                                                    <span class="meta-item-value">3</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-bath">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M37.003 48.016h-4v-3.002h-18v3.002h-4.001v-3.699c-4.66-1.65-8.002-6.083-8.002-11.305v-4.003h-3v-3h48.006v3h-3.001v4.003c0 5.223-3.343 9.655-8.002 11.305v3.699zm-30.002-24.008h-4.001v-17.005s0-7.003 8.001-7.003h1.004c.236 0 7.995.061 7.995 8.003l5.001 4h-14l5-4-.001.01.001-.009s.938-4.001-3.999-4.001h-1s-4 0-4 3v17.005000000000003h-.001z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Bathrooms</span>
+                                                    <span class="meta-item-value">4</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-garage">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M44 0h-40c-2.21 0-4 1.791-4 4v44h6v-40c0-1.106.895-2 2-2h31.999c1.106 0 2.001.895 2.001 2v40h6v-44c0-2.209-1.792-4-4-4zm-36 8.001h31.999v2.999h-31.999zm0 18h6v5.999h-2c-1.104 0-2 .896-2 2.001v6.001c0 1.103.896 1.998 2 1.998h2v2.001c0 1.104.896 2 2 2s2-.896 2-2v-2.001h11.999v2.001c0 1.104.896 2 2.001 2 1.104 0 2-.896 2-2v-2.001h2c1.104 0 2-.895 2-1.998v-6.001c0-1.105-.896-2.001-2-2.001h-2v-5.999h5.999v-3h-31.999v3zm8 12.999c-1.104 0-2-.895-2-1.999s.896-2 2-2 2 .896 2 2-.896 1.999-2 1.999zm10.5 2h-5c-.276 0-.5-.225-.5-.5 0-.273.224-.498.5-.498h5c.275 0 .5.225.5.498 0 .275-.225.5-.5.5zm1-2h-7c-.275 0-.5-.225-.5-.5s.226-.499.5-.499h7c.275 0 .5.224.5.499s-.225.5-.5.5zm-6.5-2.499c0-.276.224-.5.5-.5h5c.275 0 .5.224.5.5s-.225.5-.5.5h-5c-.277 0-.5-.224-.5-.5zm11 2.499c-1.104 0-2.001-.895-2.001-1.999s.896-2 2.001-2c1.104 0 2 .896 2 2s-.896 1.999-2 1.999zm0-12.999v5.999h-16v-5.999h16zm-24-13.001h31.999v3h-31.999zm0 5h31.999v3h-31.999z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Garages</span>
+                                                    <span class="meta-item-value">2</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- .property-meta -->
+                                    </div>
+                                    <!-- .property-description -->
+                                </article>
+                            </div>
+                            <div class="col-xs-6 custom-col-xs-12 col-md-4 col-lg-3 zero-horizontal-padding">
+                                <article class="hentry property-listing-home meta-item-half">
+                                    <div class="property-thumbnail">
+                                        <a href="#"><img class="img-responsive"
+                                                src="/landing/assets/images/property/property-2-660x600.jpg"
+                                                alt="Thumbnail"></a>
+                                    </div>
+                                    <!-- .property-thumbnail -->
+                                    <div class="property-description">
+                                        <header class="entry-header">
+                                            <h4 class="entry-title"><a href="#" rel="bookmark">Villa on Grand Avenue</a>
+                                            </h4>
+                                            <div class="price-and-status">
+                                                <span class="price">$4,750</span><a href="#"><span
+                                                        class="property-status-tag">For Rent</span></a>
+                                            </div>
+                                        </header>
+                                        <div class="property-meta entry-meta clearfix">
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-area">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M46 16v-12c0-1.104-.896-2.001-2-2.001h-12c0-1.103-.896-1.999-2.002-1.999h-11.997c-1.105 0-2.001.896-2.001 1.999h-12c-1.104 0-2 .897-2 2.001v12c-1.104 0-2 .896-2 2v11.999c0 1.104.896 2 2 2v12.001c0 1.104.896 2 2 2h12c0 1.104.896 2 2.001 2h11.997c1.106 0 2.002-.896 2.002-2h12c1.104 0 2-.896 2-2v-12.001c1.104 0 2-.896 2-2v-11.999c0-1.104-.896-2-2-2zm-4.002 23.998c0 1.105-.895 2.002-2 2.002h-31.998c-1.105 0-2-.896-2-2.002v-31.999c0-1.104.895-1.999 2-1.999h31.998c1.105 0 2 .895 2 1.999v31.999zm-5.623-28.908c-.123-.051-.256-.078-.387-.078h-11.39c-.563 0-1.019.453-1.019 1.016 0 .562.456 1.017 1.019 1.017h8.935l-20.5 20.473v-8.926c0-.562-.455-1.017-1.018-1.017-.564 0-1.02.455-1.02 1.017v11.381c0 .562.455 1.016 1.02 1.016h11.39c.562 0 1.017-.454 1.017-1.016 0-.563-.455-1.019-1.017-1.019h-8.933l20.499-20.471v8.924c0 .563.452 1.018 1.018 1.018.561 0 1.016-.455 1.016-1.018v-11.379c0-.132-.025-.264-.076-.387-.107-.249-.304-.448-.554-.551z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Area</span>
+                                                    <span class="meta-item-value">9450<sub class="meta-item-unit">Sq
+                                                            Ft</sub></span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-bed">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M21 48.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v31c0 1.104-.895 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v7.001c0 1.104-.895 1.999-2 1.999zm25 37.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v31c0 1.104-.896 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v7.001c0 1.104-.896 1.999-2 1.999z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Bedrooms</span>
+                                                    <span class="meta-item-value">4</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-bath">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M37.003 48.016h-4v-3.002h-18v3.002h-4.001v-3.699c-4.66-1.65-8.002-6.083-8.002-11.305v-4.003h-3v-3h48.006v3h-3.001v4.003c0 5.223-3.343 9.655-8.002 11.305v3.699zm-30.002-24.008h-4.001v-17.005s0-7.003 8.001-7.003h1.004c.236 0 7.995.061 7.995 8.003l5.001 4h-14l5-4-.001.01.001-.009s.938-4.001-3.999-4.001h-1s-4 0-4 3v17.005000000000003h-.001z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Bathrooms</span>
+                                                    <span class="meta-item-value">4</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-garage">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M44 0h-40c-2.21 0-4 1.791-4 4v44h6v-40c0-1.106.895-2 2-2h31.999c1.106 0 2.001.895 2.001 2v40h6v-44c0-2.209-1.792-4-4-4zm-36 8.001h31.999v2.999h-31.999zm0 18h6v5.999h-2c-1.104 0-2 .896-2 2.001v6.001c0 1.103.896 1.998 2 1.998h2v2.001c0 1.104.896 2 2 2s2-.896 2-2v-2.001h11.999v2.001c0 1.104.896 2 2.001 2 1.104 0 2-.896 2-2v-2.001h2c1.104 0 2-.895 2-1.998v-6.001c0-1.105-.896-2.001-2-2.001h-2v-5.999h5.999v-3h-31.999v3zm8 12.999c-1.104 0-2-.895-2-1.999s.896-2 2-2 2 .896 2 2-.896 1.999-2 1.999zm10.5 2h-5c-.276 0-.5-.225-.5-.5 0-.273.224-.498.5-.498h5c.275 0 .5.225.5.498 0 .275-.225.5-.5.5zm1-2h-7c-.275 0-.5-.225-.5-.5s.226-.499.5-.499h7c.275 0 .5.224.5.499s-.225.5-.5.5zm-6.5-2.499c0-.276.224-.5.5-.5h5c.275 0 .5.224.5.5s-.225.5-.5.5h-5c-.277 0-.5-.224-.5-.5zm11 2.499c-1.104 0-2.001-.895-2.001-1.999s.896-2 2.001-2c1.104 0 2 .896 2 2s-.896 1.999-2 1.999zm0-12.999v5.999h-16v-5.999h16zm-24-13.001h31.999v3h-31.999zm0 5h31.999v3h-31.999z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Garages</span>
+                                                    <span class="meta-item-value">2</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- .property-meta -->
+                                    </div>
+                                    <!-- .property-description -->
+                                </article>
+                            </div>
+                            <div class="col-xs-6 custom-col-xs-12 col-md-4 col-lg-3 zero-horizontal-padding">
+                                <article class="hentry property-listing-home meta-item-half">
+                                    <div class="property-thumbnail">
+                                        <a href="#"><img class="img-responsive"
+                                                src="/landing/assets/images/property/property-8-660x600.jpg"
+                                                alt="Thumbnail"></a>
+                                    </div>
+                                    <!-- .property-thumbnail -->
+                                    <div class="property-description">
+                                        <header class="entry-header">
+                                            <h4 class="entry-title"><a href="#" rel="bookmark">Office Space at Northwest
+                                                    107th Avenue</a></h4>
+                                            <div class="price-and-status">
+                                                <span class="price">$3,100</span><a href="#"><span
+                                                        class="property-status-tag">For Rent</span></a>
+                                            </div>
+                                        </header>
+                                        <div class="property-meta entry-meta clearfix">
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-area">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M46 16v-12c0-1.104-.896-2.001-2-2.001h-12c0-1.103-.896-1.999-2.002-1.999h-11.997c-1.105 0-2.001.896-2.001 1.999h-12c-1.104 0-2 .897-2 2.001v12c-1.104 0-2 .896-2 2v11.999c0 1.104.896 2 2 2v12.001c0 1.104.896 2 2 2h12c0 1.104.896 2 2.001 2h11.997c1.106 0 2.002-.896 2.002-2h12c1.104 0 2-.896 2-2v-12.001c1.104 0 2-.896 2-2v-11.999c0-1.104-.896-2-2-2zm-4.002 23.998c0 1.105-.895 2.002-2 2.002h-31.998c-1.105 0-2-.896-2-2.002v-31.999c0-1.104.895-1.999 2-1.999h31.998c1.105 0 2 .895 2 1.999v31.999zm-5.623-28.908c-.123-.051-.256-.078-.387-.078h-11.39c-.563 0-1.019.453-1.019 1.016 0 .562.456 1.017 1.019 1.017h8.935l-20.5 20.473v-8.926c0-.562-.455-1.017-1.018-1.017-.564 0-1.02.455-1.02 1.017v11.381c0 .562.455 1.016 1.02 1.016h11.39c.562 0 1.017-.454 1.017-1.016 0-.563-.455-1.019-1.017-1.019h-8.933l20.499-20.471v8.924c0 .563.452 1.018 1.018 1.018.561 0 1.016-.455 1.016-1.018v-11.379c0-.132-.025-.264-.076-.387-.107-.249-.304-.448-.554-.551z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Area</span>
+                                                    <span class="meta-item-value">2800<sub class="meta-item-unit">Sq
+                                                            Ft</sub></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- .property-meta -->
+                                    </div>
+                                    <!-- .property-description -->
+                                </article>
+                            </div>
+                            <div class="col-xs-6 custom-col-xs-12 col-md-4 col-lg-3 zero-horizontal-padding">
+                                <article class="hentry property-listing-home meta-item-half">
+                                    <div class="property-thumbnail">
+                                        <a href="#"><img class="img-responsive"
+                                                src="/landing/assets/images/property/property-7-660x600.jpg"
+                                                alt="Thumbnail"></a>
+                                    </div>
+                                    <!-- .property-thumbnail -->
+                                    <div class="property-description">
+                                        <header class="entry-header">
+                                            <h4 class="entry-title"><a href="#" rel="bookmark">Condo on Biscayne
+                                                    Boulevard</a></h4>
+                                            <div class="price-and-status">
+                                                <span class="price">$3,250</span><a href="#"><span
+                                                        class="property-status-tag">For Rent</span></a>
+                                            </div>
+                                        </header>
+                                        <div class="property-meta entry-meta clearfix">
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-area">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M46 16v-12c0-1.104-.896-2.001-2-2.001h-12c0-1.103-.896-1.999-2.002-1.999h-11.997c-1.105 0-2.001.896-2.001 1.999h-12c-1.104 0-2 .897-2 2.001v12c-1.104 0-2 .896-2 2v11.999c0 1.104.896 2 2 2v12.001c0 1.104.896 2 2 2h12c0 1.104.896 2 2.001 2h11.997c1.106 0 2.002-.896 2.002-2h12c1.104 0 2-.896 2-2v-12.001c1.104 0 2-.896 2-2v-11.999c0-1.104-.896-2-2-2zm-4.002 23.998c0 1.105-.895 2.002-2 2.002h-31.998c-1.105 0-2-.896-2-2.002v-31.999c0-1.104.895-1.999 2-1.999h31.998c1.105 0 2 .895 2 1.999v31.999zm-5.623-28.908c-.123-.051-.256-.078-.387-.078h-11.39c-.563 0-1.019.453-1.019 1.016 0 .562.456 1.017 1.019 1.017h8.935l-20.5 20.473v-8.926c0-.562-.455-1.017-1.018-1.017-.564 0-1.02.455-1.02 1.017v11.381c0 .562.455 1.016 1.02 1.016h11.39c.562 0 1.017-.454 1.017-1.016 0-.563-.455-1.019-1.017-1.019h-8.933l20.499-20.471v8.924c0 .563.452 1.018 1.018 1.018.561 0 1.016-.455 1.016-1.018v-11.379c0-.132-.025-.264-.076-.387-.107-.249-.304-.448-.554-.551z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Area</span>
+                                                    <span class="meta-item-value">1500<sub class="meta-item-unit">Sq
+                                                            Ft</sub></span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-bed">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M21 48.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v31c0 1.104-.895 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v7.001c0 1.104-.895 1.999-2 1.999zm25 37.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v31c0 1.104-.896 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v7.001c0 1.104-.896 1.999-2 1.999z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Bedrooms</span>
+                                                    <span class="meta-item-value">2</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-bath">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M37.003 48.016h-4v-3.002h-18v3.002h-4.001v-3.699c-4.66-1.65-8.002-6.083-8.002-11.305v-4.003h-3v-3h48.006v3h-3.001v4.003c0 5.223-3.343 9.655-8.002 11.305v3.699zm-30.002-24.008h-4.001v-17.005s0-7.003 8.001-7.003h1.004c.236 0 7.995.061 7.995 8.003l5.001 4h-14l5-4-.001.01.001-.009s.938-4.001-3.999-4.001h-1s-4 0-4 3v17.005000000000003h-.001z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Bathrooms</span>
+                                                    <span class="meta-item-value">2</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-garage">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M44 0h-40c-2.21 0-4 1.791-4 4v44h6v-40c0-1.106.895-2 2-2h31.999c1.106 0 2.001.895 2.001 2v40h6v-44c0-2.209-1.792-4-4-4zm-36 8.001h31.999v2.999h-31.999zm0 18h6v5.999h-2c-1.104 0-2 .896-2 2.001v6.001c0 1.103.896 1.998 2 1.998h2v2.001c0 1.104.896 2 2 2s2-.896 2-2v-2.001h11.999v2.001c0 1.104.896 2 2.001 2 1.104 0 2-.896 2-2v-2.001h2c1.104 0 2-.895 2-1.998v-6.001c0-1.105-.896-2.001-2-2.001h-2v-5.999h5.999v-3h-31.999v3zm8 12.999c-1.104 0-2-.895-2-1.999s.896-2 2-2 2 .896 2 2-.896 1.999-2 1.999zm10.5 2h-5c-.276 0-.5-.225-.5-.5 0-.273.224-.498.5-.498h5c.275 0 .5.225.5.498 0 .275-.225.5-.5.5zm1-2h-7c-.275 0-.5-.225-.5-.5s.226-.499.5-.499h7c.275 0 .5.224.5.499s-.225.5-.5.5zm-6.5-2.499c0-.276.224-.5.5-.5h5c.275 0 .5.224.5.5s-.225.5-.5.5h-5c-.277 0-.5-.224-.5-.5zm11 2.499c-1.104 0-2.001-.895-2.001-1.999s.896-2 2.001-2c1.104 0 2 .896 2 2s-.896 1.999-2 1.999zm0-12.999v5.999h-16v-5.999h16zm-24-13.001h31.999v3h-31.999zm0 5h31.999v3h-31.999z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Garages</span>
+                                                    <span class="meta-item-value">1</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- .property-meta -->
+                                    </div>
+                                    <!-- .property-description -->
+                                </article>
+                            </div>
+                            <div class="col-xs-6 custom-col-xs-12 col-md-4 col-lg-3 zero-horizontal-padding">
+                                <article class="hentry property-listing-home meta-item-half">
+                                    <div class="property-thumbnail">
+                                        <a href="#"><img class="img-responsive"
+                                                src="/landing/assets/images/property/property-3-660x600.jpg"
+                                                alt="Thumbnail"></a>
+                                    </div>
+                                    <!-- .property-thumbnail -->
+                                    <div class="property-description">
+                                        <header class="entry-header">
+                                            <h4 class="entry-title"><a href="#" rel="bookmark">Home in Coral Gables</a>
+                                            </h4>
+                                            <div class="price-and-status">
+                                                <span class="price">$850,000</span><a href="#"><span
+                                                        class="property-status-tag">For Sale</span></a>
+                                            </div>
+                                        </header>
+                                        <div class="property-meta entry-meta clearfix">
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-area">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M46 16v-12c0-1.104-.896-2.001-2-2.001h-12c0-1.103-.896-1.999-2.002-1.999h-11.997c-1.105 0-2.001.896-2.001 1.999h-12c-1.104 0-2 .897-2 2.001v12c-1.104 0-2 .896-2 2v11.999c0 1.104.896 2 2 2v12.001c0 1.104.896 2 2 2h12c0 1.104.896 2 2.001 2h11.997c1.106 0 2.002-.896 2.002-2h12c1.104 0 2-.896 2-2v-12.001c1.104 0 2-.896 2-2v-11.999c0-1.104-.896-2-2-2zm-4.002 23.998c0 1.105-.895 2.002-2 2.002h-31.998c-1.105 0-2-.896-2-2.002v-31.999c0-1.104.895-1.999 2-1.999h31.998c1.105 0 2 .895 2 1.999v31.999zm-5.623-28.908c-.123-.051-.256-.078-.387-.078h-11.39c-.563 0-1.019.453-1.019 1.016 0 .562.456 1.017 1.019 1.017h8.935l-20.5 20.473v-8.926c0-.562-.455-1.017-1.018-1.017-.564 0-1.02.455-1.02 1.017v11.381c0 .562.455 1.016 1.02 1.016h11.39c.562 0 1.017-.454 1.017-1.016 0-.563-.455-1.019-1.017-1.019h-8.933l20.499-20.471v8.924c0 .563.452 1.018 1.018 1.018.561 0 1.016-.455 1.016-1.018v-11.379c0-.132-.025-.264-.076-.387-.107-.249-.304-.448-.554-.551z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Area</span>
+                                                    <span class="meta-item-value">3800<sub class="meta-item-unit">Sq
+                                                            Ft</sub></span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-bed">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M21 48.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v31c0 1.104-.895 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v7.001c0 1.104-.895 1.999-2 1.999zm25 37.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v31c0 1.104-.896 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v7.001c0 1.104-.896 1.999-2 1.999z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Bedrooms</span>
+                                                    <span class="meta-item-value">4</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-bath">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M37.003 48.016h-4v-3.002h-18v3.002h-4.001v-3.699c-4.66-1.65-8.002-6.083-8.002-11.305v-4.003h-3v-3h48.006v3h-3.001v4.003c0 5.223-3.343 9.655-8.002 11.305v3.699zm-30.002-24.008h-4.001v-17.005s0-7.003 8.001-7.003h1.004c.236 0 7.995.061 7.995 8.003l5.001 4h-14l5-4-.001.01.001-.009s.938-4.001-3.999-4.001h-1s-4 0-4 3v17.005000000000003h-.001z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Bathrooms</span>
+                                                    <span class="meta-item-value">4.5</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-garage">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M44 0h-40c-2.21 0-4 1.791-4 4v44h6v-40c0-1.106.895-2 2-2h31.999c1.106 0 2.001.895 2.001 2v40h6v-44c0-2.209-1.792-4-4-4zm-36 8.001h31.999v2.999h-31.999zm0 18h6v5.999h-2c-1.104 0-2 .896-2 2.001v6.001c0 1.103.896 1.998 2 1.998h2v2.001c0 1.104.896 2 2 2s2-.896 2-2v-2.001h11.999v2.001c0 1.104.896 2 2.001 2 1.104 0 2-.896 2-2v-2.001h2c1.104 0 2-.895 2-1.998v-6.001c0-1.105-.896-2.001-2-2.001h-2v-5.999h5.999v-3h-31.999v3zm8 12.999c-1.104 0-2-.895-2-1.999s.896-2 2-2 2 .896 2 2-.896 1.999-2 1.999zm10.5 2h-5c-.276 0-.5-.225-.5-.5 0-.273.224-.498.5-.498h5c.275 0 .5.225.5.498 0 .275-.225.5-.5.5zm1-2h-7c-.275 0-.5-.225-.5-.5s.226-.499.5-.499h7c.275 0 .5.224.5.499s-.225.5-.5.5zm-6.5-2.499c0-.276.224-.5.5-.5h5c.275 0 .5.224.5.5s-.225.5-.5.5h-5c-.277 0-.5-.224-.5-.5zm11 2.499c-1.104 0-2.001-.895-2.001-1.999s.896-2 2.001-2c1.104 0 2 .896 2 2s-.896 1.999-2 1.999zm0-12.999v5.999h-16v-5.999h16zm-24-13.001h31.999v3h-31.999zm0 5h31.999v3h-31.999z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Garages</span>
+                                                    <span class="meta-item-value">2</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- .property-meta -->
+                                    </div>
+                                    <!-- .property-description -->
+                                </article>
+                            </div>
+                        </div>
+                        <!-- .row -->
+                    </div>
+                    <!-- .container -->
+                </div>
+                <!-- .property-listing-home -->
+                <section class="submit-property submit-property-one"
+                    style="background: url(images/demo/hiw-bg.jpg) no-repeat center top;  background-size: cover;">
+                    <div class="container">
+                        <header class="submit-property-header">
+                            <h3 class="sub-title">Welcome</h3>
+                            <h2 class="title">Add Your Property to Our List</h2>
+                            <p>
+                                We have a big customer base to market your property to right buyers. So get started by
+                                following these simple steps.
+                            </p>
+                        </header>
+                        <div class="row submit-property-placeholders">
+                            <div class="col-sm-4 submit-property-placeholder">
+                                <div class="image-wrapper">
+                                    <a href="#"><img src="/landing/assets/images/demo/icon-1.svg" alt="Icon" /></a>
+                                </div>
+                                <h3 class="submit-property-title">Register</h3>
+                                <p>
+                                    Cras mattis consectetur purus sit amet fermentum. Curabitur blandit tempus
+                                    porttitor.
+                                </p>
+                            </div>
+                            <div class="col-sm-4 submit-property-placeholder">
+                                <div class="image-wrapper">
+                                    <a href="#"><img src="/landing/assets/images/demo/icon-2.svg" alt="Icon" /></a>
+                                </div>
+                                <h3 class="submit-property-title">Fill Up Property Details</h3>
+                                <p>
+                                    Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Etiam
+                                    porta sem malesuada magna mollis euismod.
+                                </p>
+                            </div>
+                            <div class="col-sm-4 submit-property-placeholder">
+                                <div class="image-wrapper">
+                                    <a href="#"><img src="/landing/assets/images/demo/icon-3.svg" alt="Icon" /></a>
+                                </div>
+                                <h3 class="submit-property-title">You are Done!</h3>
+                                <p>
+                                    Cras mattis consectetur purus sit amet fermentum. Praesent commodo cursus magna, vel
+                                    scelerisque nisl consectetur et.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <a class="btn-large btn-green" href="#">Submit Your Property</a>
+                        </div>
+                    </div>
+                    <!-- .container -->
+                </section>
+                <!-- .submit-property-section -->
+                <div class="featured-properties meta-item-half featured-properties-two">
+                    <div class="container">
+                        <header class="section-header">
+                            <h3 class="section-title">Featured Properties</h3>
+                        </header>
+                        <div class="row">
+                            <div class="col-xs-6 col-md-4">
+                                <article class="hentry featured-property-post">
+                                    <div class="property-thumbnail">
+                                        <a href="#"><img class="img-responsive"
+                                                src="/landing/assets/images/property/property-1-660x600.jpg"
+                                                alt="Thumbnail"></a>
+                                    </div>
+                                    <!-- .property-thumbnail -->
+                                    <div class="property-description">
+                                        <header class="entry-header">
+                                            <h4 class="entry-title"><a href="#" rel="bookmark">Home in Merrick Way</a>
+                                            </h4>
+                                            <div class="price-and-status">
+                                                <span class="price">$540,000</span><a href="#"><span
+                                                        class="property-status-tag">For Sale</span></a>
+                                            </div>
+                                        </header>
+                                        <div class="property-meta entry-meta clearfix">
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-area">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M46 16v-12c0-1.104-.896-2.001-2-2.001h-12c0-1.103-.896-1.999-2.002-1.999h-11.997c-1.105 0-2.001.896-2.001 1.999h-12c-1.104 0-2 .897-2 2.001v12c-1.104 0-2 .896-2 2v11.999c0 1.104.896 2 2 2v12.001c0 1.104.896 2 2 2h12c0 1.104.896 2 2.001 2h11.997c1.106 0 2.002-.896 2.002-2h12c1.104 0 2-.896 2-2v-12.001c1.104 0 2-.896 2-2v-11.999c0-1.104-.896-2-2-2zm-4.002 23.998c0 1.105-.895 2.002-2 2.002h-31.998c-1.105 0-2-.896-2-2.002v-31.999c0-1.104.895-1.999 2-1.999h31.998c1.105 0 2 .895 2 1.999v31.999zm-5.623-28.908c-.123-.051-.256-.078-.387-.078h-11.39c-.563 0-1.019.453-1.019 1.016 0 .562.456 1.017 1.019 1.017h8.935l-20.5 20.473v-8.926c0-.562-.455-1.017-1.018-1.017-.564 0-1.02.455-1.02 1.017v11.381c0 .562.455 1.016 1.02 1.016h11.39c.562 0 1.017-.454 1.017-1.016 0-.563-.455-1.019-1.017-1.019h-8.933l20.499-20.471v8.924c0 .563.452 1.018 1.018 1.018.561 0 1.016-.455 1.016-1.018v-11.379c0-.132-.025-.264-.076-.387-.107-.249-.304-.448-.554-.551z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Area</span>
+                                                    <span class="meta-item-value">4300<sub class="meta-item-unit">Sq
+                                                            Ft</sub></span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-bed">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M21 48.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v31c0 1.104-.895 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v7.001c0 1.104-.895 1.999-2 1.999zm25 37.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v31c0 1.104-.896 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v7.001c0 1.104-.896 1.999-2 1.999z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Bedrooms</span>
+                                                    <span class="meta-item-value">3</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-bath">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M37.003 48.016h-4v-3.002h-18v3.002h-4.001v-3.699c-4.66-1.65-8.002-6.083-8.002-11.305v-4.003h-3v-3h48.006v3h-3.001v4.003c0 5.223-3.343 9.655-8.002 11.305v3.699zm-30.002-24.008h-4.001v-17.005s0-7.003 8.001-7.003h1.004c.236 0 7.995.061 7.995 8.003l5.001 4h-14l5-4-.001.01.001-.009s.938-4.001-3.999-4.001h-1s-4 0-4 3v17.005000000000003h-.001z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Bathrooms</span>
+                                                    <span class="meta-item-value">3</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-garage">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M44 0h-40c-2.21 0-4 1.791-4 4v44h6v-40c0-1.106.895-2 2-2h31.999c1.106 0 2.001.895 2.001 2v40h6v-44c0-2.209-1.792-4-4-4zm-36 8.001h31.999v2.999h-31.999zm0 18h6v5.999h-2c-1.104 0-2 .896-2 2.001v6.001c0 1.103.896 1.998 2 1.998h2v2.001c0 1.104.896 2 2 2s2-.896 2-2v-2.001h11.999v2.001c0 1.104.896 2 2.001 2 1.104 0 2-.896 2-2v-2.001h2c1.104 0 2-.895 2-1.998v-6.001c0-1.105-.896-2.001-2-2.001h-2v-5.999h5.999v-3h-31.999v3zm8 12.999c-1.104 0-2-.895-2-1.999s.896-2 2-2 2 .896 2 2-.896 1.999-2 1.999zm10.5 2h-5c-.276 0-.5-.225-.5-.5 0-.273.224-.498.5-.498h5c.275 0 .5.225.5.498 0 .275-.225.5-.5.5zm1-2h-7c-.275 0-.5-.225-.5-.5s.226-.499.5-.499h7c.275 0 .5.224.5.499s-.225.5-.5.5zm-6.5-2.499c0-.276.224-.5.5-.5h5c.275 0 .5.224.5.5s-.225.5-.5.5h-5c-.277 0-.5-.224-.5-.5zm11 2.499c-1.104 0-2.001-.895-2.001-1.999s.896-2 2.001-2c1.104 0 2 .896 2 2s-.896 1.999-2 1.999zm0-12.999v5.999h-16v-5.999h16zm-24-13.001h31.999v3h-31.999zm0 5h31.999v3h-31.999z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Garages</span>
+                                                    <span class="meta-item-value">2</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-ptype">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill-rule="evenodd" clip-rule="evenodd"
+                                                            fill="#0DBAE8"
+                                                            d="M24 48.001c-13.255 0-24-10.745-24-24.001 0-13.254 10.745-24 24-24s24 10.746 24 24c0 13.256-10.745 24.001-24 24.001zm10-27.001l-10-8-10 8v11c0 1.03.888 2.001 2 2.001h3.999v-9h8.001v9h4c1.111 0 2-.839 2-2.001v-11z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Type</span>
+                                                    <span class="meta-item-value">Single Family Home</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- .property-meta -->
+                                    </div>
+                                    <!-- .property-description -->
+                                </article>
+                            </div>
+                            <!-- .featured-properties-item -->
+                            <div class="col-xs-6 col-md-4">
+                                <article class="hentry featured-property-post">
+                                    <div class="property-thumbnail">
+                                        <a href="#"><img class="img-responsive"
+                                                src="/landing/assets/images/property/property-12-660x600.jpg"
+                                                alt="Thumbnail"></a>
+                                    </div>
+                                    <!-- .property-thumbnail -->
+                                    <div class="property-description">
+                                        <header class="entry-header">
+                                            <h4 class="entry-title"><a href="#" rel="bookmark">Villa in Coral Gables</a>
+                                            </h4>
+                                            <div class="price-and-status">
+                                                <span class="price">$825,000</span><a href="#"><span
+                                                        class="property-status-tag">For Sale</span></a>
+                                            </div>
+                                        </header>
+                                        <div class="property-meta entry-meta clearfix">
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-area">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M46 16v-12c0-1.104-.896-2.001-2-2.001h-12c0-1.103-.896-1.999-2.002-1.999h-11.997c-1.105 0-2.001.896-2.001 1.999h-12c-1.104 0-2 .897-2 2.001v12c-1.104 0-2 .896-2 2v11.999c0 1.104.896 2 2 2v12.001c0 1.104.896 2 2 2h12c0 1.104.896 2 2.001 2h11.997c1.106 0 2.002-.896 2.002-2h12c1.104 0 2-.896 2-2v-12.001c1.104 0 2-.896 2-2v-11.999c0-1.104-.896-2-2-2zm-4.002 23.998c0 1.105-.895 2.002-2 2.002h-31.998c-1.105 0-2-.896-2-2.002v-31.999c0-1.104.895-1.999 2-1.999h31.998c1.105 0 2 .895 2 1.999v31.999zm-5.623-28.908c-.123-.051-.256-.078-.387-.078h-11.39c-.563 0-1.019.453-1.019 1.016 0 .562.456 1.017 1.019 1.017h8.935l-20.5 20.473v-8.926c0-.562-.455-1.017-1.018-1.017-.564 0-1.02.455-1.02 1.017v11.381c0 .562.455 1.016 1.02 1.016h11.39c.562 0 1.017-.454 1.017-1.016 0-.563-.455-1.019-1.017-1.019h-8.933l20.499-20.471v8.924c0 .563.452 1.018 1.018 1.018.561 0 1.016-.455 1.016-1.018v-11.379c0-.132-.025-.264-.076-.387-.107-.249-.304-.448-.554-.551z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Area</span>
+                                                    <span class="meta-item-value">3500<sub class="meta-item-unit">Sq
+                                                            Ft</sub></span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-bed">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M21 48.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v31c0 1.104-.895 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v7.001c0 1.104-.895 1.999-2 1.999zm25 37.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v31c0 1.104-.896 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v7.001c0 1.104-.896 1.999-2 1.999z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Bedrooms</span>
+                                                    <span class="meta-item-value">3</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-bath">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M37.003 48.016h-4v-3.002h-18v3.002h-4.001v-3.699c-4.66-1.65-8.002-6.083-8.002-11.305v-4.003h-3v-3h48.006v3h-3.001v4.003c0 5.223-3.343 9.655-8.002 11.305v3.699zm-30.002-24.008h-4.001v-17.005s0-7.003 8.001-7.003h1.004c.236 0 7.995.061 7.995 8.003l5.001 4h-14l5-4-.001.01.001-.009s.938-4.001-3.999-4.001h-1s-4 0-4 3v17.005000000000003h-.001z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Bathrooms</span>
+                                                    <span class="meta-item-value">3.2</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-garage">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M44 0h-40c-2.21 0-4 1.791-4 4v44h6v-40c0-1.106.895-2 2-2h31.999c1.106 0 2.001.895 2.001 2v40h6v-44c0-2.209-1.792-4-4-4zm-36 8.001h31.999v2.999h-31.999zm0 18h6v5.999h-2c-1.104 0-2 .896-2 2.001v6.001c0 1.103.896 1.998 2 1.998h2v2.001c0 1.104.896 2 2 2s2-.896 2-2v-2.001h11.999v2.001c0 1.104.896 2 2.001 2 1.104 0 2-.896 2-2v-2.001h2c1.104 0 2-.895 2-1.998v-6.001c0-1.105-.896-2.001-2-2.001h-2v-5.999h5.999v-3h-31.999v3zm8 12.999c-1.104 0-2-.895-2-1.999s.896-2 2-2 2 .896 2 2-.896 1.999-2 1.999zm10.5 2h-5c-.276 0-.5-.225-.5-.5 0-.273.224-.498.5-.498h5c.275 0 .5.225.5.498 0 .275-.225.5-.5.5zm1-2h-7c-.275 0-.5-.225-.5-.5s.226-.499.5-.499h7c.275 0 .5.224.5.499s-.225.5-.5.5zm-6.5-2.499c0-.276.224-.5.5-.5h5c.275 0 .5.224.5.5s-.225.5-.5.5h-5c-.277 0-.5-.224-.5-.5zm11 2.499c-1.104 0-2.001-.895-2.001-1.999s.896-2 2.001-2c1.104 0 2 .896 2 2s-.896 1.999-2 1.999zm0-12.999v5.999h-16v-5.999h16zm-24-13.001h31.999v3h-31.999zm0 5h31.999v3h-31.999z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Garages</span>
+                                                    <span class="meta-item-value">2</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-ptype">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill-rule="evenodd" clip-rule="evenodd"
+                                                            fill="#0DBAE8"
+                                                            d="M24 48.001c-13.255 0-24-10.745-24-24.001 0-13.254 10.745-24 24-24s24 10.746 24 24c0 13.256-10.745 24.001-24 24.001zm10-27.001l-10-8-10 8v11c0 1.03.888 2.001 2 2.001h3.999v-9h8.001v9h4c1.111 0 2-.839 2-2.001v-11z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Type</span>
+                                                    <span class="meta-item-value">Villa</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- .property-meta -->
+                                    </div>
+                                    <!-- .property-description -->
+                                </article>
+                            </div>
+                            <!-- .featured-properties-item -->
+                            <div class="col-xs-6 col-md-4">
+                                <article class="hentry featured-property-post">
+                                    <div class="property-thumbnail">
+                                        <a href="#"><img class="img-responsive"
+                                                src="/landing/assets/images/property/property-2-660x600.jpg"
+                                                alt="Thumbnail"></a>
+                                    </div>
+                                    <!-- .property-thumbnail -->
+                                    <div class="property-description">
+                                        <header class="entry-header">
+                                            <h4 class="entry-title"><a href="#" rel="bookmark">Villa on Grand Avenue</a>
+                                            </h4>
+                                            <div class="price-and-status">
+                                                <span class="price">$4,750</span><a href="#"><span
+                                                        class="property-status-tag">For Rent</span></a>
+                                            </div>
+                                        </header>
+                                        <div class="property-meta entry-meta clearfix">
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-area">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M46 16v-12c0-1.104-.896-2.001-2-2.001h-12c0-1.103-.896-1.999-2.002-1.999h-11.997c-1.105 0-2.001.896-2.001 1.999h-12c-1.104 0-2 .897-2 2.001v12c-1.104 0-2 .896-2 2v11.999c0 1.104.896 2 2 2v12.001c0 1.104.896 2 2 2h12c0 1.104.896 2 2.001 2h11.997c1.106 0 2.002-.896 2.002-2h12c1.104 0 2-.896 2-2v-12.001c1.104 0 2-.896 2-2v-11.999c0-1.104-.896-2-2-2zm-4.002 23.998c0 1.105-.895 2.002-2 2.002h-31.998c-1.105 0-2-.896-2-2.002v-31.999c0-1.104.895-1.999 2-1.999h31.998c1.105 0 2 .895 2 1.999v31.999zm-5.623-28.908c-.123-.051-.256-.078-.387-.078h-11.39c-.563 0-1.019.453-1.019 1.016 0 .562.456 1.017 1.019 1.017h8.935l-20.5 20.473v-8.926c0-.562-.455-1.017-1.018-1.017-.564 0-1.02.455-1.02 1.017v11.381c0 .562.455 1.016 1.02 1.016h11.39c.562 0 1.017-.454 1.017-1.016 0-.563-.455-1.019-1.017-1.019h-8.933l20.499-20.471v8.924c0 .563.452 1.018 1.018 1.018.561 0 1.016-.455 1.016-1.018v-11.379c0-.132-.025-.264-.076-.387-.107-.249-.304-.448-.554-.551z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Area</span>
+                                                    <span class="meta-item-value">9350<sub class="meta-item-unit">Sq
+                                                            Ft</sub></span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-bed">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M21 48.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v31c0 1.104-.895 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.106 0 2 .896 2 2v7.001c0 1.104-.895 1.999-2 1.999zm25 37.001h-19c-1.104 0-2-.896-2-2v-31c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v31c0 1.104-.896 2-2 2zm0-37.001h-19c-1.104 0-2-.895-2-1.999v-7.001c0-1.104.896-2 2-2h19c1.104 0 2 .896 2 2v7.001c0 1.104-.896 1.999-2 1.999z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Bedrooms</span>
+                                                    <span class="meta-item-value">4</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-bath">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M37.003 48.016h-4v-3.002h-18v3.002h-4.001v-3.699c-4.66-1.65-8.002-6.083-8.002-11.305v-4.003h-3v-3h48.006v3h-3.001v4.003c0 5.223-3.343 9.655-8.002 11.305v3.699zm-30.002-24.008h-4.001v-17.005s0-7.003 8.001-7.003h1.004c.236 0 7.995.061 7.995 8.003l5.001 4h-14l5-4-.001.01.001-.009s.938-4.001-3.999-4.001h-1s-4 0-4 3v17.005000000000003h-.001z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Bathrooms</span>
+                                                    <span class="meta-item-value">4</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-garage">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill="#0DBAE8"
+                                                            d="M44 0h-40c-2.21 0-4 1.791-4 4v44h6v-40c0-1.106.895-2 2-2h31.999c1.106 0 2.001.895 2.001 2v40h6v-44c0-2.209-1.792-4-4-4zm-36 8.001h31.999v2.999h-31.999zm0 18h6v5.999h-2c-1.104 0-2 .896-2 2.001v6.001c0 1.103.896 1.998 2 1.998h2v2.001c0 1.104.896 2 2 2s2-.896 2-2v-2.001h11.999v2.001c0 1.104.896 2 2.001 2 1.104 0 2-.896 2-2v-2.001h2c1.104 0 2-.895 2-1.998v-6.001c0-1.105-.896-2.001-2-2.001h-2v-5.999h5.999v-3h-31.999v3zm8 12.999c-1.104 0-2-.895-2-1.999s.896-2 2-2 2 .896 2 2-.896 1.999-2 1.999zm10.5 2h-5c-.276 0-.5-.225-.5-.5 0-.273.224-.498.5-.498h5c.275 0 .5.225.5.498 0 .275-.225.5-.5.5zm1-2h-7c-.275 0-.5-.225-.5-.5s.226-.499.5-.499h7c.275 0 .5.224.5.499s-.225.5-.5.5zm-6.5-2.499c0-.276.224-.5.5-.5h5c.275 0 .5.224.5.5s-.225.5-.5.5h-5c-.277 0-.5-.224-.5-.5zm11 2.499c-1.104 0-2.001-.895-2.001-1.999s.896-2 2.001-2c1.104 0 2 .896 2 2s-.896 1.999-2 1.999zm0-12.999v5.999h-16v-5.999h16zm-24-13.001h31.999v3h-31.999zm0 5h31.999v3h-31.999z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Garages</span>
+                                                    <span class="meta-item-value">2</span>
+                                                </div>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="meta-item-icon icon-ptype">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="meta-icon-container"
+                                                        width="30" height="30" viewBox="0 0 48 48">
+                                                        <path class="meta-icon" fill-rule="evenodd" clip-rule="evenodd"
+                                                            fill="#0DBAE8"
+                                                            d="M24 48.001c-13.255 0-24-10.745-24-24.001 0-13.254 10.745-24 24-24s24 10.746 24 24c0 13.256-10.745 24.001-24 24.001zm10-27.001l-10-8-10 8v11c0 1.03.888 2.001 2 2.001h3.999v-9h8.001v9h4c1.111 0 2-.839 2-2.001v-11z" />
+                                                    </svg>
+                                                </i>
+                                                <div class="meta-inner-wrapper">
+                                                    <span class="meta-item-label">Type</span>
+                                                    <span class="meta-item-value">Villa</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- .property-meta -->
+                                    </div>
+                                    <!-- .property-description -->
+                                </article>
+                            </div>
+                            <!-- .featured-properties-item -->
+                        </div>
+                        <!-- .row -->
+                    </div>
+                    <!-- .container -->
+                </div>
+                <!-- .featured-properties -->
+                <section class="partners">
+                    <div class="container">
+                        <div class="row zero-horizontal-margin">
+                            <div class="col-xs-12">
+                                <h3 class="title">
+                                    We are Working as <span>Partners</span> with Following Prestigious Companies.
+                                </h3>
+                                <ul class="list-grid-layout list-unstyled">
+                                    <li><a href="#"><img class="img-responsive"
+                                                src="/landing/assets/images/partner/videohive.png" alt="Thumbnail"></a>
+                                    </li>
+                                    <li><a href="#"><img class="img-responsive"
+                                                src="/landing/assets/images/partner/codecanyon.png" alt="Thumbnail"></a>
+                                    </li>
+                                    <li><a href="#"><img class="img-responsive"
+                                                src="/landing/assets/images/partner/audiojungle.png"
+                                                alt="Thumbnail"></a></li>
+                                    <li><a href="#"><img class="img-responsive"
+                                                src="/landing/assets/images/partner/themeforest.png"
+                                                alt="Thumbnail"></a></li>
+                                    <li><a href="#"><img class="img-responsive"
+                                                src="/landing/assets/images/partner/photodune.png" alt="Thumbnail"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- .container -->
+                </section>
+                <!-- .partners -->
+                <section class="home-recent-posts">
+                    <div class="container">
+                        <header class="section-header">
+                            <h3 class="section-title">Latest News</h3>
+                            <div class="recent-posts-carousel-nav carousel-nav">
+                                <a class="carousel-prev-item prev">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="arrow-container" width="32"
+                                        height="52" viewBox="0 0 32 52">
+                                        <g class="left-arrow" fill="#fff">
+                                            <path opacity=".5"
+                                                d="M31.611 7.646l-6.787-7.057-24.435 25.406 6.787 7.057z" />
+                                            <path d="M.389 26.006l6.787-7.058 24.435 25.406-6.787 7.057z" />
+                                        </g>
+                                    </svg>
+                                </a>
+                                <a class="carousel-next-item next">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="arrow-container" width="32"
+                                        height="52" viewBox="0 0 32 52">
+                                        <g class="right-arrow" fill-rule="evenodd" clip-rule="evenodd" fill="#fff">
+                                            <path
+                                                d="M.388 44.354l6.788 7.057 24.436-25.406-6.788-7.057-24.436 25.406z" />
+                                            <path opacity=".5"
+                                                d="M31.612 25.994l-6.788 7.058-24.436-25.406 6.788-7.057 24.436 25.405z" />
+                                        </g>
+                                    </svg>
+                                </a>
+                            </div>
+                        </header>
+                        <div class="recent-posts-carousel">
+                            <div class="owl-carousel">
+                                <div class="recent-posts-item">
+                                    <article class="clearfix format-gallery hentry">
+                                        <div class="post-thumbnail-container">
+                                            <div class="gallery-slider-two flexslider">
+                                                <ul class="slides">
+                                                    <li>
+                                                        <a title="Feature Image" data-rel="gallery-1" class="swipebox"
+                                                            href="images/news/news-post-7-660x600.jpg">
+                                                            <img src="/landing/assets/images/news/news-post-7-660x600.jpg"
+                                                                alt="Thumbnail">
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a title="Feature Image" data-rel="gallery-1" class="swipebox"
+                                                            href="images/news/news-post-5-660x600.jpg">
+                                                            <img src="/landing/assets/images/news/news-post-5-660x600.jpg"
+                                                                alt="Thumbnail">
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a title="Feature Image" data-rel="gallery-1" class="swipebox"
+                                                            href="images/news/news-post-4-660x600.jpg">
+                                                            <img src="/landing/assets/images/news/news-post-4-660x600.jpg"
+                                                                alt="Thumbnail">
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="post-content-wrapper">
+                                            <div class="post-header entry-header">
+                                                <h4 class="post-title entry-title"> <a href="#">Gallery Post Format</a>
+                                                </h4>
+                                                <div class="post-meta entry-meta">
+                                                    <span class="author-link">By <a rel="author" href="#">John
+                                                            Doe</a></span>
+                                                </div>
+                                            </div>
+                                            <p>Competently harness enterprise vortals via revolutionary e-tailers.
+                                                Monotonectally recaptiualize one-to-one relationships whereas
+                                                ubiquitous…</p>
+                                            <a class="read-more" href="#">More <i
+                                                    class="fa fa-arrow-circle-o-right"></i></a>
+                                        </div>
+                                        <!-- .post-content-wrapper -->
+                                    </article>
+                                </div>
+                                <div class="recent-posts-item">
+                                    <article class="clearfix format-image hentry">
+                                        <div class="post-thumbnail-container">
+                                            <figure class="post-thumbnail">
+                                                <a href="#"><img
+                                                        src="/landing/assets/images/news/news-post-3-660x600.jpg"
+                                                        class="img-responsive wp-post-image" alt="News Post"></a>
+                                            </figure>
+                                        </div>
+                                        <!-- .post-thumbnail-container -->
+                                        <div class="post-content-wrapper">
+                                            <div class="post-header entry-header">
+                                                <h4 class="post-title entry-title"><a href="#">Image Post Format</a>
+                                                </h4>
+                                                <div class="post-meta entry-meta">
+                                                    <span class="author-link">By <a rel="author" href="#">John
+                                                            Doe</a></span>
+                                                </div>
+                                            </div>
+                                            <p>Enthusiastically disintermediate progressive innovation before
+                                                high-payoff metrics. Intrinsicly generate sticky services without B2B…
+                                            </p>
+                                            <a class="read-more" href="#">More <i
+                                                    class="fa fa-arrow-circle-o-right"></i></a>
+                                        </div>
+                                        <!-- .post-content-wrapper -->
+                                    </article>
+                                </div>
+                                <div class="recent-posts-item">
+                                    <article class="clearfix format-video hentry">
+                                        <div class="post-thumbnail-container">
+                                            <div class="embed-responsive embed-responsive-4by3">
+                                                <iframe
+                                                    src="https://player.vimeo.com/video/89541885?title=0&amp;byline=0&amp;portrait=0"></iframe>
+                                            </div>
+                                        </div>
+                                        <div class="post-content-wrapper">
+                                            <div class="post-header entry-header">
+                                                <h4 class="post-title entry-title"><a href="#">Video Post Format</a>
+                                                </h4>
+                                                <div class="post-meta entry-meta">
+                                                    <span class="author-link">By <a rel="author" href="#">John
+                                                            Doe</a></span>
+                                                </div>
+                                            </div>
+                                            <p>Uniquely customize future-proof niche markets via worldwide users.
+                                                Proactively negotiate user-centric schemas after…</p>
+                                            <a class="read-more" href="#">More <i
+                                                    class="fa fa-arrow-circle-o-right"></i></a>
+                                        </div>
+                                        <!-- .post-content-wrapper -->
+                                    </article>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
-                    <div class="text-center text-sm text-gray-500 sm:text-left">
-                        <div class="flex items-center">
-                            <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" class="-mt-px w-5 h-5 text-gray-400">
-                                <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
-
-                            <a href="https://laravel.bigcartel.com" class="ml-1 underline">
-                                Shop
-                            </a>
-
-                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="ml-4 -mt-px w-5 h-5 text-gray-400">
-                                <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                            </svg>
-
-                            <a href="https://github.com/sponsors/taylorotwell" class="ml-1 underline">
-                                Sponsor
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-                    </div>
-                </div>
-            </div>
+                    <!-- .container -->
+                </section>
+                <!-- .home-recent-posts -->
+            </main>
+            <!-- .site-main -->
         </div>
-    </body>
-</html>
+        <!-- .site-content -->
+    </div>
+@endsection
